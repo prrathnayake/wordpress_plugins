@@ -8,9 +8,10 @@ License: GPLv2 or later
 
 Fetches Google reviews via the Places API, caches the highest-rated ones nightly, and displays them in a professional horizontal auto-sliding marquee.
 
-Usage:
-1) Settings → Google Reviews: set API Key + Place ID, thresholds. Click Sync Now.
-2) Add shortcode anywhere (Elementor Shortcode widget OK):
-   [google_reviews_marquee title="What Our Customers Say" limit="24" min_rating="4.8" autoplay="true" speed="normal"]
+== How to Use ==
+1. Go to **Settings → Google Reviews**, paste your Google Places API Key and Place ID, and configure rating thresholds. Click **Sync Now** to pull the latest reviews.
+2. Embed the marquee by adding the shortcode anywhere shortcodes are supported (widgets, Elementor, block editor, etc.):
+   `[google_reviews_marquee title="What Our Customers Say" limit="24" min_rating="4.8" autoplay="true" speed="normal"]`
+3. Optionally override shortcode attributes to change the review limit, autoplay behavior, or scroll speed for each placement.
 
 Note: Google Places Reviews API often lacks per-review images. The plugin uses reviewer avatars and optional place photos to enrich visuals.
