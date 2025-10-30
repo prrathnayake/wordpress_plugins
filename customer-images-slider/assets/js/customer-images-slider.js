@@ -70,15 +70,16 @@
 
         var isVideo = (type === 'video');
 
-        var shouldInit = !(type === 'images' && !isNaN(count) && count <= columns);
+        var isStaticImages = (type === 'images' && !isNaN(count) && count <= columns);
+        var shouldInit = !isStaticImages;
         if (shouldInit) {
             var config = {
-                loop: false,
+                loop: isVideo ? false : true,
                 spaceBetween: isVideo ? spaceBetween : 24,
                 slidesPerView: isVideo ? 1 : columns,
                 centeredSlides: !isVideo,
-                slidesOffsetBefore: isVideo ? 0 : 12,
-                slidesOffsetAfter: isVideo ? 0 : 12,
+                slidesOffsetBefore: 0,
+                slidesOffsetAfter: 0,
                 navigation: (navPrev && navNext) ? { prevEl: navPrev, nextEl: navNext } : false,
                 pagination: pagination ? { el: pagination, clickable: true } : false,
                 breakpoints: breakpoints,
@@ -86,8 +87,17 @@
                 allowTouchMove: true
             };
             if (!isVideo) {
-                config.effect = 'coverflow';
-                config.coverflowEffect = { rotate: 0, stretch: 0, depth: 80, modifier: 1, slideShadows: false };
+                config.effect = 'slide';
+                config.autoplay = {
+                    delay: 0,
+                    disableOnInteraction: false,
+                    pauseOnMouseEnter: true,
+                    stopOnLastSlide: false
+                };
+                config.speed = 6000;
+                config.loopAdditionalSlides = Math.max(columns + 2, 5);
+                config.centeredSlides = true;
+                config.centeredSlidesBounds = true;
             }
             // eslint-disable-next-line no-undef
             new Swiper(el, config);
