@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Customer Images & Video Slider (ACF)
  * Description: Shortcode [customer_images size="large" columns="3" title="Happy Customers" product_id=""] shows a 3-column image slider + 1 video column using ACF fields. Hero title/text/button/bg are pulled dynamically from ACF if present, with fallbacks.
- * Version: 1.6.0
+ * Version: 1.7.0
  * Author: BuiltByPasan + ChatGPT
  * License: GPLv2 or later
  * Text Domain: customer-images-slider
@@ -29,8 +29,8 @@ class Customer_Images_Video_Slider {
         wp_enqueue_style( 'swiper', 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css', array(), '10.3.1' );
         wp_enqueue_script( 'swiper', 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js', array(), '10.3.1', true );
 
-        wp_enqueue_style( 'customer-images-slider', plugins_url( 'assets/css/customer-images-slider.css', __FILE__ ), array('swiper'), '1.6.0' );
-        wp_enqueue_script( 'customer-images-slider', plugins_url( 'assets/js/customer-images-slider.js', __FILE__ ), array('swiper'), '1.6.0', true );
+        wp_enqueue_style( 'customer-images-slider', plugins_url( 'assets/css/customer-images-slider.css', __FILE__ ), array('swiper'), '1.7.0' );
+        wp_enqueue_script( 'customer-images-slider', plugins_url( 'assets/js/customer-images-slider.js', __FILE__ ), array('swiper'), '1.7.0', true );
     }
 
     public function shortcode( $atts ) {
