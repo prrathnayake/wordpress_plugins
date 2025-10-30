@@ -9,6 +9,11 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Shortcode [customer_images size="large" columns="3" title="Happy Customers" product_id=""] renders a 3-column image card slider and a 1-column video card. All hero content is fetched from product ACF with clean fallbacks. Click any image/video to open fullscreen.
 
+== How to Use ==
+1. Install and activate the plugin, then assign the "Customer Images & Video" ACF field group (below) to the WooCommerce products you want to feature.
+2. Upload customer gallery images, optionally add a product video, and fill in any hero fields while editing the product.
+3. Insert the `[customer_images]` shortcode into a post, page, or template part. Adjust attributes such as `size`, `columns`, and `title` (see example above) to fit your layout.
+
 == ACF Fields ==
 Group: group_68c3b71cc5578
 - customer_images (Gallery)
