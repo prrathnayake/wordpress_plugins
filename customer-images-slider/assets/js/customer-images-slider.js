@@ -50,13 +50,15 @@
         var type = el.getAttribute('data-type') || 'images';
         var columns = parseInt(el.getAttribute('data-columns') || '3', 10);
         var count = parseInt(el.getAttribute('data-count') || '0', 10);
-        var spaceBetween = parseInt(el.getAttribute('data-space-between') || '16', 10);
+        var spaceBetween = parseInt(el.getAttribute('data-space-between') || '24', 10);
         var breakpoints = {};
+        var autoplayAttr = el.getAttribute('data-autoplay') || 'true';
+        var delay = parseInt(el.getAttribute('data-delay') || '2500', 10);
+        var speed = parseInt(el.getAttribute('data-speed') || '600', 10);
         try {
             breakpoints = JSON.parse(el.getAttribute('data-breakpoints') || '{}');
         } catch(e){}
 
-        // If images slider and not more than columns, don't init Swiper. Use static grid.
         if (type === 'images') {
             el.style.setProperty('--cis-columns', String(columns));
             if (!isNaN(count) && count <= columns) {
@@ -68,42 +70,36 @@
         var navNext = el.querySelector('.cis-nav-next');
         var pagination = el.querySelector('.cis-pagination');
 
-        var isVideo = (type === 'video');
-
-        var isStaticImages = (type === 'images' && !isNaN(count) && count <= columns);
-        var shouldInit = !isStaticImages;
+        var shouldInit = !(type === 'images' && !isNaN(count) && count <= columns);
+        var swiper;
         if (shouldInit) {
             var config = {
-                loop: isVideo ? false : true,
-                spaceBetween: isVideo ? spaceBetween : 24,
-                slidesPerView: isVideo ? 1 : columns,
-                centeredSlides: !isVideo,
-                slidesOffsetBefore: 0,
-                slidesOffsetAfter: 0,
+                loop: false,
+                spaceBetween: spaceBetween,
+                slidesPerView: type === 'video' ? 1 : columns,
+                centeredSlides: false,
                 navigation: (navPrev && navNext) ? { prevEl: navPrev, nextEl: navNext } : false,
                 pagination: pagination ? { el: pagination, clickable: true } : false,
                 breakpoints: breakpoints,
                 grabCursor: true,
-                allowTouchMove: true
+                allowTouchMove: true,
+                speed: isNaN(speed) ? 600 : speed
             };
-            if (!isVideo) {
-                config.effect = 'slide';
-                config.autoplay = {
-                    delay: 0,
-                    disableOnInteraction: false,
-                    pauseOnMouseEnter: true,
-                    stopOnLastSlide: false
-                };
-                config.speed = 6000;
-                config.loopAdditionalSlides = Math.max(columns + 2, 5);
-                config.centeredSlides = true;
-                config.centeredSlidesBounds = true;
+
+            if (type === 'images') {
+                var autoplay = (autoplayAttr === 'true');
+                config.autoplay = autoplay ? { delay: isNaN(delay) ? 2500 : delay, disableOnInteraction: false } : false;
             }
+
             // eslint-disable-next-line no-undef
-            new Swiper(el, config);
+            swiper = new Swiper(el, config);
+
+            if (type === 'images' && config.autoplay) {
+                el.addEventListener('mouseenter', function(){ swiper.autoplay.stop(); });
+                el.addEventListener('mouseleave', function(){ swiper.autoplay.start(); });
+            }
         }
 
-        // Lightbox click handlers
         if (type === 'images') {
             el.addEventListener('click', function(e){
                 var img = e.target.closest('img.cis-img');
