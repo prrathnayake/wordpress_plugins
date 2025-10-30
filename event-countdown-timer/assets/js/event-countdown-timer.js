@@ -3,6 +3,25 @@
     return String(value).padStart(2, '0');
   }
 
+  function initRevealAnimations(root) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    root.querySelectorAll('.ect-countdown__unit').forEach((unit, index) => {
+      unit.style.setProperty('--ect-delay', `${index * 70}ms`);
+      observer.observe(unit);
+    });
+  }
+
   function renderCountdown(container) {
     const dateString = container.dataset.targetDate;
     if (!dateString) {
@@ -52,6 +71,9 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.ect-countdown').forEach(renderCountdown);
+    document.querySelectorAll('.ect-countdown').forEach((container) => {
+      renderCountdown(container);
+      initRevealAnimations(container);
+    });
   });
 })();

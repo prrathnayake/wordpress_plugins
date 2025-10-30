@@ -81,7 +81,7 @@ class Customer_Gallery_Sync_Pro {
         if(empty($images)) return '';
         $columns=max(1,intval($atts['columns'])); $count=count($images); $title=sanitize_text_field($atts['title']); $size=sanitize_text_field($atts['size']); $show_side = (strtolower($atts['side_title'])==='true');
         ob_start(); ?>
-        <section class="cgs-wrap cgs-layout">
+        <section class="cgs-wrap cgs-layout mkt-ui">
             <?php if($show_side): ?>
             <aside class="cgs-side-title">
                 <div class="cgs-side-title-inner">
@@ -139,7 +139,7 @@ class Customer_Gallery_Sync_Pro {
         if(empty($images)) return '';
         $columns=max(1,intval($atts['columns'])); $count=is_array($images)?count($images):0; $title=sanitize_text_field($atts['title']); $size=sanitize_text_field($atts['size']); $show_side = (strtolower($atts['side_title'])==='true');
         ob_start(); ?>
-        <section class="cgs-wrap cgs-layout">
+        <section class="cgs-wrap cgs-layout mkt-ui">
             <?php if($show_side): ?>
             <aside class="cgs-side-title">
                 <div class="cgs-side-title-inner">

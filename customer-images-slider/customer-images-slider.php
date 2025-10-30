@@ -115,7 +115,7 @@ class Customer_Images_Video_Slider {
 
         ob_start();
         ?>
-        <section class="cis-wrap" data-columns="<?php echo esc_attr( $columns ); ?>">
+        <section class="cis-wrap mkt-ui" data-columns="<?php echo esc_attr( $columns ); ?>">
             <?php if ( ! empty( $title ) ) : ?>
                 <h3 class="cis-title"><?php echo esc_html( $title ); ?></h3>
             <?php endif; ?>

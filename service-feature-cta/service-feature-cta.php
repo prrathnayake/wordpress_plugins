@@ -72,7 +72,7 @@ class SFC_Service_Feature_CTA {
 
         ob_start();
         ?>
-        <section class="<?php echo esc_attr( implode( ' ', $wrapper_classes ) ); ?>">
+        <section class="<?php echo esc_attr( implode( ' ', $wrapper_classes ) ); ?> mkt-ui">
             <div class="sfc-feature-shell" data-animate="fade">
                 <header class="sfc-feature-header">
                     <?php if ( ! empty( $atts['eyebrow'] ) ) : ?>
