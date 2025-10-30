@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Customer Images & Video Slider (ACF)
- * Description: Shortcode [customer_images size="large" columns="3" title="Happy Customers" product_id=""] shows a 3-column image slider + 1 video column using ACF fields. Hero title/text/button/bg are pulled dynamically from ACF if present, with fallbacks.
- * Version: 1.7.0
+ * Description: Shortcode [customer_images size="large" columns="3" title="Happy Customers" product_id="" autoplay="true" delay="2500" speed="600"] renders a Customer Gallery Slide-style carousel (3-up images + optional video column) sourced from product ACF fields, with dynamic hero fallbacks.
+ * Version: 1.8.0
  * Author: BuiltByPasan + ChatGPT
  * License: GPLv2 or later
  * Text Domain: customer-images-slider
@@ -29,8 +29,8 @@ class Customer_Images_Video_Slider {
         wp_enqueue_style( 'swiper', 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css', array(), '10.3.1' );
         wp_enqueue_script( 'swiper', 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js', array(), '10.3.1', true );
 
-        wp_enqueue_style( 'customer-images-slider', plugins_url( 'assets/css/customer-images-slider.css', __FILE__ ), array('swiper'), '1.7.0' );
-        wp_enqueue_script( 'customer-images-slider', plugins_url( 'assets/js/customer-images-slider.js', __FILE__ ), array('swiper'), '1.7.0', true );
+        wp_enqueue_style( 'customer-images-slider', plugins_url( 'assets/css/customer-images-slider.css', __FILE__ ), array('swiper'), '1.8.0' );
+        wp_enqueue_script( 'customer-images-slider', plugins_url( 'assets/js/customer-images-slider.js', __FILE__ ), array('swiper'), '1.8.0', true );
     }
 
     public function shortcode( $atts ) {
@@ -39,9 +39,24 @@ class Customer_Images_Video_Slider {
             'columns'    => '3',
             'title'      => 'Happy Customers',
             'product_id' => '',
+            'autoplay'   => 'true',
+            'delay'      => '2500',
+            'speed'      => '600',
         ), $atts, 'customer_images' );
 
         $columns = max( 1, intval( $atts['columns'] ) );
+        $autoplay_flag = strtolower( $atts['autoplay'] ) === 'true';
+        $delay = intval( $atts['delay'] );
+        if ( $delay <= 0 ) { $delay = 2500; }
+        $speed = intval( $atts['speed'] );
+        if ( $speed <= 0 ) { $speed = 600; }
+
+        $breakpoints = array(
+            1280 => array( 'slidesPerView' => max( 1, $columns ) ),
+            1024 => array( 'slidesPerView' => min( 3, max( 1, $columns ) ) ),
+            768  => array( 'slidesPerView' => min( 2, max( 1, $columns ) ) ),
+            0    => array( 'slidesPerView' => 1 ),
+        );
 
         // Resolve product ID
         $product_id = 0;
@@ -139,28 +154,35 @@ class Customer_Images_Video_Slider {
                     <div class="cis-layout cis-layout-3-1">
                         <?php if ( ! empty( $images ) ) : ?>
                         <div class="cis-col cis-col-images">
-                            <div class="cis-block">
+                            <div class="cis-slider-shell" data-mkt-animate>
+                                <div class="cis-bg-blur"></div>
                                 <div class="swiper cis-swiper cis-swiper-images"
                                      data-type="images"
-                                     data-columns="3"
+                                     data-columns="<?php echo esc_attr( $columns ); ?>"
                                      data-count="<?php echo esc_attr( is_array($images) ? count($images) : 0 ); ?>"
-                                     data-space-between="16"
-                                     data-breakpoints='{"1024":{"slidesPerView":3},"768":{"slidesPerView":2},"0":{"slidesPerView":1}}'>
+                                     data-space-between="24"
+                                     data-breakpoints='<?php echo esc_attr( wp_json_encode( $breakpoints ) ); ?>'
+                                     data-autoplay="<?php echo esc_attr( $autoplay_flag ? 'true' : 'false' ); ?>"
+                                     data-delay="<?php echo esc_attr( $delay ); ?>"
+                                     data-speed="<?php echo esc_attr( $speed ); ?>">
                                     <div class="swiper-wrapper">
-                                        <?php foreach ( $images as $img ) : 
+                                        <?php foreach ( $images as $img ) :
                                             $img_id = is_array( $img ) && isset( $img['ID'] ) ? intval( $img['ID'] ) : ( is_numeric( $img ) ? intval( $img ) : 0 );
                                             if ( ! $img_id ) { continue; }
                                             $full = wp_get_attachment_image_src( $img_id, 'full' );
                                             ?>
                                             <div class="swiper-slide">
-                                                <figure class="cis-figure">
-                                                    <?php echo wp_get_attachment_image( $img_id, $size, false, array(
-                                                        'class'    => 'cis-img',
-                                                        'loading'  => 'lazy',
-                                                        'decoding' => 'async',
-                                                        'alt'      => get_post_meta( $img_id, '_wp_attachment_image_alt', true ),
-                                                        'data-full'=> $full ? $full[0] : '',
-                                                    ) ); ?>
+                                                <figure class="cis-figure is-center">
+                                                    <div class="cis-img-wrap">
+                                                        <?php echo wp_get_attachment_image( $img_id, $size, false, array(
+                                                            'class'    => 'cis-img',
+                                                            'loading'  => 'lazy',
+                                                            'decoding' => 'async',
+                                                            'alt'      => get_post_meta( $img_id, '_wp_attachment_image_alt', true ),
+                                                            'data-full'=> $full ? $full[0] : '',
+                                                        ) ); ?>
+                                                        <span class="cis-hover-overlay"></span>
+                                                    </div>
                                                 </figure>
                                             </div>
                                         <?php endforeach; ?>
@@ -175,7 +197,8 @@ class Customer_Images_Video_Slider {
 
                         <?php if ( ! empty( $video ) ) : ?>
                         <div class="cis-col cis-col-video">
-                            <div class="cis-block cis-video-block">
+                            <div class="cis-slider-shell cis-video-shell" data-mkt-animate>
+                                <div class="cis-bg-blur"></div>
                                 <div class="swiper cis-swiper cis-swiper-video" data-type="video" data-columns="1" data-space-between="16">
                                     <div class="swiper-wrapper">
                                         <div class="swiper-slide">

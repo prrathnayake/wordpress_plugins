@@ -6,7 +6,7 @@ A curated set of modern WordPress plugins focused on marketing and conversion-re
 
 | Plugin | Description | Primary Shortcode |
 | --- | --- | --- |
-| Customer Images & Video Slider | Fetches customer gallery assets from ACF fields and renders a responsive slider + lightbox. | `[customer_images size="large" columns="3" title="Happy Customers" product_id="123"]` |
+| Customer Images & Video Slider | Fetches customer gallery assets from ACF fields and renders a Customer Gallery Slide-style carousel with optional hero + video column. | `[customer_images size="large" columns="3" title="Happy Customers" product_id="123" autoplay="true" delay="2500" speed="600"]` |
 | Google Reviews Marquee | Syncs Google Places reviews nightly and displays them in an auto-scrolling marquee. | `[google_reviews_marquee title="What Our Customers Say" limit="24" min_rating="4.8" autoplay="true" speed="normal"]` |
 | Team Member Profiles | Responsive team roster cards with bios and social links plus subtle animation. | `[team_member_profiles columns="3" theme="light" members="Jane Doe|CEO|https://example.com/jane.jpg|Lead visionary.|LinkedIn~https://linkedin.com/in/janedoe"]` |
 | Service Feature CTA | Hero section for services including animated feature list and CTA button. | `[service_feature_cta title="Why brands hire us" subtitle="Fractional growth team" button_text="Schedule intro" button_url="https://example.com/contact" layout="two-column" background="dark" features="Launch playbooks|Validated experiments shipped in 14 days.;Retention audits|Plug the leaks."]` |
