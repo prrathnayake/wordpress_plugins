@@ -1,3 +1,40 @@
+:root {
+  --mkt-font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --mkt-ink: #0f172a;
+  --mkt-ink-soft: rgba(15, 23, 42, 0.72);
+  --mkt-ink-subtle: rgba(15, 23, 42, 0.5);
+  --mkt-surface: linear-gradient(145deg, #f7f9ff 0%, #eef2ff 48%, #e3e9f7 100%);
+  --mkt-card: linear-gradient(140deg, rgba(255, 255, 255, 0.95), rgba(241, 245, 255, 0.65));
+  --mkt-card-highlight: linear-gradient(180deg, rgba(37, 99, 235, 0.1), rgba(37, 99, 235, 0));
+  --mkt-radius-xl: 26px;
+  --mkt-radius-lg: 20px;
+  --mkt-shadow-lg: 0 28px 64px rgba(12, 28, 92, 0.18);
+  --mkt-shadow-md: 0 20px 48px rgba(12, 28, 92, 0.14);
+  --mkt-accent: #2563eb;
+  --mkt-accent-strong: #4338ca;
+  --mkt-accent-soft: rgba(37, 99, 235, 0.16);
+}
+
+.mkt-ui {
+  font-family: var(--mkt-font-family);
+  color: var(--mkt-ink);
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+
+[data-animate],
+[data-mkt-animate] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1), opacity 360ms ease;
+}
+
+[data-animate].is-visible,
+[data-mkt-animate].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .ptp-pricing {
   display: grid;
   gap: clamp(1.5rem, 4vw, 2.5rem);
@@ -25,17 +62,17 @@
 .ptp-plan {
   position: relative;
   padding: clamp(1.75rem, 4vw, 2.5rem);
-  border-radius: 1.75rem;
-  background: #ffffff;
+  border-radius: var(--mkt-radius-lg);
+  background: var(--mkt-card);
   border: 1px solid rgba(15, 23, 42, 0.08);
-  box-shadow: 0 30px 60px rgba(15, 23, 42, 0.08);
+  box-shadow: var(--mkt-shadow-md);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
-  transform: translateY(24px);
+  transform: translateY(28px);
   opacity: 0;
-  transition: transform 320ms ease, opacity 320ms ease, box-shadow 320ms ease;
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1), opacity 360ms ease, box-shadow 320ms ease;
   transition-delay: var(--ptp-delay, 0ms);
 }
 
@@ -49,7 +86,7 @@
 }
 
 .ptp-plan--highlighted {
-  background: linear-gradient(180deg, rgba(37, 99, 235, 0.08), rgba(37, 99, 235, 0));
+  background: var(--mkt-card-highlight);
   border: 1px solid rgba(37, 99, 235, 0.35);
 }
 
@@ -60,8 +97,8 @@
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  background: rgba(37, 99, 235, 0.16);
-  color: #1d4ed8;
+  background: var(--mkt-accent-soft);
+  color: var(--mkt-accent);
   font-weight: 600;
 }
 
@@ -69,12 +106,12 @@
   margin: 0;
   font-size: clamp(1.6rem, 3vw, 2rem);
   font-weight: 700;
-  color: #0f172a;
+  color: var(--mkt-ink);
 }
 
 .ptp-plan__tagline {
   margin: 0;
-  color: rgba(15, 23, 42, 0.65);
+  color: var(--mkt-ink-soft);
   line-height: 1.6;
 }
 
@@ -84,19 +121,19 @@
   gap: 0.3rem;
   font-size: clamp(2.2rem, 4vw, 3rem);
   font-weight: 700;
-  color: #0f172a;
+  color: var(--mkt-ink);
 }
 
 .ptp-plan__currency {
   font-size: 1.2rem;
   font-weight: 600;
-  color: rgba(15, 23, 42, 0.7);
+  color: var(--mkt-ink-subtle);
 }
 
 .ptp-plan__period {
   font-size: 0.95rem;
   font-weight: 500;
-  color: rgba(15, 23, 42, 0.55);
+  color: var(--mkt-ink-subtle);
 }
 
 .ptp-plan__features {
@@ -111,13 +148,13 @@
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  color: rgba(15, 23, 42, 0.72);
+  color: var(--mkt-ink-soft);
   font-size: 0.98rem;
 }
 
 .ptp-plan__features li::before {
-  content: '\2713';
-  color: #2563eb;
+  content: '\\2713';
+  color: var(--mkt-accent);
   font-weight: 700;
 }
 
@@ -129,7 +166,7 @@
   border-radius: 0.9rem;
   font-weight: 600;
   text-decoration: none;
-  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  background: linear-gradient(135deg, var(--mkt-accent), var(--mkt-accent-strong));
   color: #fff;
   box-shadow: 0 20px 40px rgba(37, 99, 235, 0.35);
   transition: transform 220ms ease, box-shadow 220ms ease;
@@ -144,5 +181,5 @@
 .ptp-plan__footnote {
   margin: 0;
   font-size: 0.85rem;
-  color: rgba(15, 23, 42, 0.5);
+  color: var(--mkt-ink-subtle);
 }

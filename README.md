@@ -12,6 +12,8 @@ A curated set of modern WordPress plugins focused on marketing and conversion-re
 | Service Feature CTA | Hero section for services including animated feature list and CTA button. | `[service_feature_cta title="Why brands hire us" subtitle="Fractional growth team" button_text="Schedule intro" button_url="https://example.com/contact" layout="two-column" background="dark" features="Launch playbooks|Validated experiments shipped in 14 days.;Retention audits|Plug the leaks."]` |
 | Event Countdown Timer | Gradient countdown hero for launches, webinars, or product drops. | `[event_countdown title="Launch Summit" date="2024-11-05T16:00:00-05:00" timezone="America/New_York" button_text="Claim your ticket" button_url="https://example.com/rsvp" background="gradient"]` |
 | Pricing Table Pro | Conversion-ready pricing columns with highlight badges and feature lists. | `[pricing_table columns="3" highlight="2" currency="$" billing_period="/mo" plans="Starter|29|For new teams.|Up to 3 seats,Email support;Growth|79|Automation and insights.|Unlimited seats,Priority support|Most popular|Start trial|https://example.com/growth|14-day trial;Enterprise|149|Dedicated success.|Custom contracts,SAML SSO|Best value|Talk to sales|https://example.com/enterprise"]` |
+| Case Study Carousel | Swiper-powered carousel that spotlights customer wins, metrics, and imagery. | `[case_study_carousel title="Growth stories" subtitle="Latest impact" cases="Acme Corp|+140% pipeline|Scaled outbound motions.|https://example.com/acme.svg|https://example.com/case/acme"]` |
+| Success Metrics Panels | KPI grid with animated progress bars, trend copy, and shared marketing styling. | `[success_metrics heading="Momentum" subtitle="Scorecard" metrics="Activation rate|74%|+12 pts vs last quarter|Guided onboarding flows unlocked a new baseline.|74"]` |
 
 ## Usage
 
@@ -27,5 +29,6 @@ Each plugin directory contains a `readme.txt` with deeper configuration notes, a
 - CSS and JavaScript assets are enqueued only when their shortcode runs to keep payloads lean.
 - Animations rely on the Intersection Observer API for performant reveal effects.
 - Default content is provided for quick previews and can be overridden entirely via shortcode attributes.
+- Every plugin consumes the same marketing design tokens for typography, gradients, and reveal animations to keep the UI cohesive.
 
 Pull requests and suggestions are welcome!

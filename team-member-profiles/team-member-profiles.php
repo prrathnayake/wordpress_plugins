@@ -69,7 +69,7 @@ if ( ! class_exists( 'TMP_Team_Member_Profiles' ) ) {
 
             ob_start();
             ?>
-            <section class="tmp-profile-grid tmp-profile-grid--<?php echo esc_attr( $atts['layout'] ); ?> tmp-profile-grid--cols-<?php echo esc_attr( $columns ); ?> tmp-profile-grid--theme-<?php echo esc_attr( $atts['theme'] ); ?>">
+            <section class="tmp-profile-grid tmp-profile-grid--<?php echo esc_attr( $atts['layout'] ); ?> tmp-profile-grid--cols-<?php echo esc_attr( $columns ); ?> tmp-profile-grid--theme-<?php echo esc_attr( $atts['theme'] ); ?> mkt-ui">
                 <?php foreach ( $members as $member ) : ?>
                     <article class="tmp-profile-card" data-animate="fade-up">
                         <div class="tmp-profile-card__media">

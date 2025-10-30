@@ -126,7 +126,7 @@ class GRM_Plugin {
         $items=$this->get_cached_reviews($atts);
         if(empty($items)) return '';
         $title=sanitize_text_field($atts['title']); $limit=max(1,intval($atts['limit'])); ob_start(); ?>
-        <section class="grm-wrap">
+        <section class="grm-wrap mkt-ui">
             <?php if($title): ?><h3 class="grm-title"><?php echo esc_html($title); ?></h3><?php endif; ?>
             <div class="swiper grm-swiper" data-speed="<?php echo esc_attr($atts['speed']); ?>" data-autoplay="<?php echo esc_attr($atts['autoplay']); ?>">
                 <div class="swiper-wrapper">

@@ -1,3 +1,40 @@
+:root {
+  --mkt-font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --mkt-ink: #0f172a;
+  --mkt-ink-soft: rgba(15, 23, 42, 0.72);
+  --mkt-ink-subtle: rgba(15, 23, 42, 0.5);
+  --mkt-surface: linear-gradient(145deg, #f7f9ff 0%, #eef2ff 48%, #e3e9f7 100%);
+  --mkt-card: linear-gradient(150deg, rgba(255, 255, 255, 0.92), rgba(241, 245, 255, 0.65));
+  --mkt-card-dark: linear-gradient(150deg, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.72));
+  --mkt-radius-lg: 24px;
+  --mkt-radius-md: 18px;
+  --mkt-shadow-lg: 0 28px 64px rgba(12, 28, 92, 0.18);
+  --mkt-shadow-md: 0 20px 48px rgba(12, 28, 92, 0.14);
+  --mkt-accent: #2563eb;
+  --mkt-accent-strong: #4338ca;
+  --mkt-accent-soft: rgba(37, 99, 235, 0.16);
+}
+
+.mkt-ui {
+  font-family: var(--mkt-font-family);
+  color: var(--mkt-ink);
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+
+[data-animate],
+[data-mkt-animate] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1), opacity 360ms ease;
+}
+
+[data-animate].is-visible,
+[data-mkt-animate].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .tmp-profile-grid {
   display: grid;
   gap: clamp(1.5rem, 3vw, 2.5rem);
@@ -23,7 +60,7 @@
 }
 
 .tmp-profile-grid--theme-dark {
-  --tmp-profile-surface: #0f172a;
+  --tmp-profile-surface: var(--mkt-card-dark);
   --tmp-profile-border: rgba(148, 163, 184, 0.25);
   --tmp-profile-heading: #f8fafc;
   --tmp-profile-text: #cbd5f5;
@@ -31,24 +68,23 @@
 }
 
 .tmp-profile-grid--theme-light {
-  --tmp-profile-surface: #ffffff;
+  --tmp-profile-surface: var(--mkt-card);
   --tmp-profile-border: rgba(15, 23, 42, 0.08);
   --tmp-profile-heading: #0f172a;
   --tmp-profile-text: #475569;
-  --tmp-profile-accent: #2563eb;
+  --tmp-profile-accent: var(--mkt-accent);
 }
 
 .tmp-profile-card {
   position: relative;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.6));
-  background-color: var(--tmp-profile-surface, #ffffff);
+  background: var(--tmp-profile-surface, var(--mkt-card));
   border: 1px solid var(--tmp-profile-border, rgba(15, 23, 42, 0.08));
-  border-radius: 1.5rem;
+  border-radius: var(--mkt-radius-lg);
   padding: clamp(1.5rem, 4vw, 2rem);
-  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.08);
-  transform: translateY(16px);
+  box-shadow: var(--mkt-shadow-md);
+  transform: translateY(28px);
   opacity: 0;
-  transition: transform 300ms ease, opacity 300ms ease, box-shadow 300ms ease;
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1), opacity 360ms ease, box-shadow 300ms ease;
 }
 
 .tmp-profile-card.is-visible {
@@ -62,7 +98,7 @@
 
 .tmp-profile-card__media {
   aspect-ratio: 1;
-  border-radius: 1rem;
+  border-radius: var(--mkt-radius-md);
   overflow: hidden;
   margin-bottom: 1.25rem;
   background: radial-gradient(circle at top, rgba(37, 99, 235, 0.25), transparent 55%);
@@ -82,7 +118,7 @@
   place-items: center;
   font-size: clamp(1.75rem, 3vw, 2.25rem);
   font-weight: 600;
-  color: var(--tmp-profile-accent, #2563eb);
+  color: var(--tmp-profile-accent, var(--mkt-accent));
   background: rgba(37, 99, 235, 0.08);
 }
 
@@ -90,7 +126,7 @@
   margin: 0;
   font-size: clamp(1.125rem, 2.5vw, 1.5rem);
   font-weight: 700;
-  color: var(--tmp-profile-heading, #0f172a);
+  color: var(--tmp-profile-heading, var(--mkt-ink));
 }
 
 .tmp-profile-card__role {
@@ -99,12 +135,12 @@
   font-weight: 500;
   letter-spacing: 0.01em;
   text-transform: uppercase;
-  color: var(--tmp-profile-accent, #2563eb);
+  color: var(--tmp-profile-accent, var(--mkt-accent));
 }
 
 .tmp-profile-card__bio {
   margin: 0 0 1.25rem;
-  color: var(--tmp-profile-text, #475569);
+  color: var(--tmp-profile-text, var(--mkt-ink-soft));
   line-height: 1.6;
   font-size: 0.98rem;
 }
@@ -123,15 +159,15 @@
   font-size: 0.85rem;
   font-weight: 600;
   border-radius: 999px;
-  background: rgba(37, 99, 235, 0.1);
-  color: var(--tmp-profile-accent, #2563eb);
+  background: var(--mkt-accent-soft);
+  color: var(--tmp-profile-accent, var(--mkt-accent));
   text-decoration: none;
   transition: background 200ms ease, color 200ms ease, transform 200ms ease;
 }
 
 .tmp-profile-card__social-link:hover,
 .tmp-profile-card__social-link:focus-visible {
-  background: var(--tmp-profile-accent, #2563eb);
+  background: var(--tmp-profile-accent, var(--mkt-accent));
   color: #fff;
   transform: translateY(-1px);
 }

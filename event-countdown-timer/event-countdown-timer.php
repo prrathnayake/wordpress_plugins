@@ -65,7 +65,7 @@ class ECT_Event_Countdown_Timer {
 
         ob_start();
         ?>
-        <section class="<?php echo esc_attr( implode( ' ', $container_classes ) ); ?>" data-target-date="<?php echo esc_attr( $target_date ); ?>" data-timezone="<?php echo esc_attr( $timezone ); ?>">
+        <section class="<?php echo esc_attr( implode( ' ', $container_classes ) ); ?> mkt-ui" data-target-date="<?php echo esc_attr( $target_date ); ?>" data-timezone="<?php echo esc_attr( $timezone ); ?>">
             <div class="ect-countdown__inner" data-animate="pulse">
                 <?php if ( ! empty( $atts['badge'] ) ) : ?>
                     <span class="ect-countdown__badge"><?php echo esc_html( $atts['badge'] ); ?></span>

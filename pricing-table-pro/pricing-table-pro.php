@@ -67,7 +67,7 @@ class PTP_Pricing_Table_Pro {
 
         ob_start();
         ?>
-        <section class="ptp-pricing ptp-pricing--cols-<?php echo esc_attr( $columns ); ?>">
+        <section class="ptp-pricing ptp-pricing--cols-<?php echo esc_attr( $columns ); ?> mkt-ui">
             <?php foreach ( $plans as $index => $plan ) :
                 $is_highlighted = $index === $highlight_index;
                 ?>
