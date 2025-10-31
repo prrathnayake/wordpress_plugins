@@ -43,18 +43,24 @@ class SFC_Service_Feature_CTA {
     public function render_shortcode( $atts ) {
         $atts = shortcode_atts(
             [
-                'title'        => __( 'What we deliver', 'service-feature-cta' ),
-                'subtitle'     => __( 'Strategic services designed to compound results.', 'service-feature-cta' ),
-                'button_text'  => __( 'Book a strategy call', 'service-feature-cta' ),
-                'button_url'   => '#',
-                'features'     => '',
-                'layout'       => 'two-column',
-                'background'   => 'light',
-                'eyebrow'      => __( 'Services', 'service-feature-cta' ),
+                'title'         => __( 'What we deliver', 'service-feature-cta' ),
+                'subtitle'      => __( 'Strategic services designed to compound results.', 'service-feature-cta' ),
+                'button_text'   => __( 'Book a strategy call', 'service-feature-cta' ),
+                'button_url'    => '#',
+                'features'      => '',
+                'layout'        => 'two-column',
+                'background'    => '',
+                'theme'         => 'yellow',
+                'theme_switcher'=> 'false',
+                'eyebrow'       => __( 'Services', 'service-feature-cta' ),
             ],
             $atts,
             'service_feature_cta'
         );
+
+        $theme_source   = ! empty( $atts['theme'] ) ? $atts['theme'] : $atts['background'];
+        $theme          = $this->normalize_theme( $theme_source );
+        $theme_switcher = filter_var( $atts['theme_switcher'], FILTER_VALIDATE_BOOLEAN );
 
         $features = $this->parse_features( $atts['features'] );
         if ( empty( $features ) ) {
@@ -67,12 +73,29 @@ class SFC_Service_Feature_CTA {
         $wrapper_classes = [
             'sfc-feature-section',
             'sfc-feature-section--' . sanitize_html_class( $atts['layout'] ),
-            'sfc-feature-section--' . sanitize_html_class( $atts['background'] ),
+            'sfc-feature-section--theme-' . $theme,
+            'sfc-theme--' . $theme,
+            'mkt-theme--' . $theme,
         ];
+
+        if ( ! empty( $atts['background'] ) ) {
+            $wrapper_classes[] = 'sfc-feature-section--' . sanitize_html_class( $atts['background'] );
+        }
+
+        $section_id     = wp_unique_id( 'sfc-feature-' );
+        $theme_prefixes = 'sfc-feature-section--theme-,sfc-theme--,mkt-theme--';
 
         ob_start();
         ?>
-        <section class="<?php echo esc_attr( implode( ' ', $wrapper_classes ) ); ?> mkt-ui">
+        <section
+            id="<?php echo esc_attr( $section_id ); ?>"
+            class="<?php echo esc_attr( implode( ' ', $wrapper_classes ) ); ?> mkt-ui"
+            data-mkt-theme="<?php echo esc_attr( $theme ); ?>"
+            data-theme-prefixes="<?php echo esc_attr( $theme_prefixes ); ?>"
+        >
+            <?php if ( $theme_switcher ) : ?>
+                <?php echo $this->render_theme_switcher( $section_id, $theme ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+            <?php endif; ?>
             <div class="sfc-feature-shell" data-animate="fade">
                 <header class="sfc-feature-header">
                     <?php if ( ! empty( $atts['eyebrow'] ) ) : ?>
@@ -103,6 +126,44 @@ class SFC_Service_Feature_CTA {
             </div>
         </section>
         <?php
+        return ob_get_clean();
+    }
+
+    private function normalize_theme( $theme ) {
+        $allowed = [ 'light', 'dark', 'yellow' ];
+
+        $theme = strtolower( trim( (string) $theme ) );
+
+        if ( ! in_array( $theme, $allowed, true ) ) {
+            $theme = 'yellow';
+        }
+
+        return $theme;
+    }
+
+    private function render_theme_switcher( $section_id, $current_theme ) {
+        $options = [
+            'light'  => __( 'Light', 'service-feature-cta' ),
+            'dark'   => __( 'Dark', 'service-feature-cta' ),
+            'yellow' => __( 'Yellow', 'service-feature-cta' ),
+        ];
+
+        $select_id = $section_id . '-theme';
+
+        ob_start();
+        ?>
+        <div class="mkt-theme-switcher" data-target="<?php echo esc_attr( $section_id ); ?>">
+            <label for="<?php echo esc_attr( $select_id ); ?>"><?php esc_html_e( 'Theme', 'service-feature-cta' ); ?></label>
+            <select id="<?php echo esc_attr( $select_id ); ?>" aria-controls="<?php echo esc_attr( $section_id ); ?>">
+                <?php foreach ( $options as $value => $label ) : ?>
+                    <option value="<?php echo esc_attr( $value ); ?>" <?php selected( $current_theme, $value ); ?>>
+                        <?php echo esc_html( $label ); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <?php
+
         return ob_get_clean();
     }
 

@@ -121,12 +121,34 @@ class GRM_Plugin {
     private function enqueue_assets(){ wp_enqueue_style('swiper'); wp_enqueue_script('swiper'); wp_enqueue_style('grm'); wp_enqueue_script('grm'); }
 
     public function shortcode($atts){
-        $atts=shortcode_atts(['title'=>'What Our Customers Say','limit'=>'24','min_rating'=>'','autoplay'=>'true','speed'=>'normal'],$atts,'google_reviews_marquee');
+        $atts=shortcode_atts([
+            'title'          => 'What Our Customers Say',
+            'limit'          => '24',
+            'min_rating'     => '',
+            'autoplay'       => 'true',
+            'speed'          => 'normal',
+            'theme'          => 'yellow',
+            'theme_switcher' => 'false',
+        ],$atts,'google_reviews_marquee');
         $this->enqueue_assets();
         $items=$this->get_cached_reviews($atts);
         if(empty($items)) return '';
-        $title=sanitize_text_field($atts['title']); $limit=max(1,intval($atts['limit'])); ob_start(); ?>
-        <section class="grm-wrap mkt-ui">
+        $title=sanitize_text_field($atts['title']); $limit=max(1,intval($atts['limit']));
+        $theme=$this->normalize_theme( $atts['theme'] );
+        $theme_switcher=filter_var( $atts['theme_switcher'], FILTER_VALIDATE_BOOLEAN );
+        $section_id=wp_unique_id('grm-wrap-');
+        $theme_prefixes='grm-wrap--theme-,grm-theme--,mkt-theme--';
+        $classes=['grm-wrap','grm-wrap--theme-'.$theme,'grm-theme--'.$theme,'mkt-theme--'.$theme,'mkt-ui'];
+        ob_start(); ?>
+        <section
+            id="<?php echo esc_attr($section_id); ?>"
+            class="<?php echo esc_attr(implode(' ',$classes)); ?>"
+            data-mkt-theme="<?php echo esc_attr($theme); ?>"
+            data-theme-prefixes="<?php echo esc_attr($theme_prefixes); ?>"
+        >
+            <?php if ( $theme_switcher ) : ?>
+                <?php echo $this->render_theme_switcher( $section_id, $theme ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+            <?php endif; ?>
             <?php if($title): ?><h3 class="grm-title"><?php echo esc_html($title); ?></h3><?php endif; ?>
             <div class="swiper grm-swiper" data-speed="<?php echo esc_attr($atts['speed']); ?>" data-autoplay="<?php echo esc_attr($atts['autoplay']); ?>">
                 <div class="swiper-wrapper">
@@ -152,6 +174,44 @@ class GRM_Plugin {
             </div>
         </section>
         <?php return ob_get_clean();
+    }
+
+    private function normalize_theme( $theme ) {
+        $allowed = [ 'light', 'dark', 'yellow' ];
+
+        $theme = strtolower( trim( (string) $theme ) );
+
+        if ( ! in_array( $theme, $allowed, true ) ) {
+            $theme = 'yellow';
+        }
+
+        return $theme;
+    }
+
+    private function render_theme_switcher( $section_id, $current_theme ) {
+        $options = [
+            'light'  => __( 'Light', 'google-reviews-marquee' ),
+            'dark'   => __( 'Dark', 'google-reviews-marquee' ),
+            'yellow' => __( 'Yellow', 'google-reviews-marquee' ),
+        ];
+
+        $select_id = $section_id . '-theme';
+
+        ob_start();
+        ?>
+        <div class="mkt-theme-switcher" data-target="<?php echo esc_attr( $section_id ); ?>">
+            <label for="<?php echo esc_attr( $select_id ); ?>"><?php esc_html_e( 'Theme', 'google-reviews-marquee' ); ?></label>
+            <select id="<?php echo esc_attr( $select_id ); ?>" aria-controls="<?php echo esc_attr( $section_id ); ?>">
+                <?php foreach ( $options as $value => $label ) : ?>
+                    <option value="<?php echo esc_attr( $value ); ?>" <?php selected( $current_theme, $value ); ?>>
+                        <?php echo esc_html( $label ); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <?php
+
+        return ob_get_clean();
     }
 
     private function get_cached_reviews($atts){

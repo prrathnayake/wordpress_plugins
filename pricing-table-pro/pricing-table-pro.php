@@ -49,10 +49,15 @@ class PTP_Pricing_Table_Pro {
                 'highlight'      => '2',
                 'columns'        => 3,
                 'cta_text'       => __( 'Get started', 'pricing-table-pro' ),
+                'theme'          => 'yellow',
+                'theme_switcher' => 'false',
             ],
             $atts,
             'pricing_table'
         );
+
+        $theme          = $this->normalize_theme( $atts['theme'] );
+        $theme_switcher = filter_var( $atts['theme_switcher'], FILTER_VALIDATE_BOOLEAN );
 
         $plans = $this->parse_plans( $atts['plans'], $atts['currency'], $atts['billing_period'], $atts['cta_text'] );
         if ( empty( $plans ) ) {
@@ -65,9 +70,28 @@ class PTP_Pricing_Table_Pro {
         wp_enqueue_style( 'ptp-pricing-table' );
         wp_enqueue_script( 'ptp-pricing-table' );
 
+        $section_id      = wp_unique_id( 'ptp-pricing-' );
+        $theme_prefixes  = 'ptp-pricing--theme-,ptp-theme--,mkt-theme--';
+        $container_class = [
+            'ptp-pricing',
+            'ptp-pricing--cols-' . $columns,
+            'ptp-pricing--theme-' . $theme,
+            'ptp-theme--' . $theme,
+            'mkt-theme--' . $theme,
+            'mkt-ui',
+        ];
+
         ob_start();
         ?>
-        <section class="ptp-pricing ptp-pricing--cols-<?php echo esc_attr( $columns ); ?> mkt-ui">
+        <section
+            id="<?php echo esc_attr( $section_id ); ?>"
+            class="<?php echo esc_attr( implode( ' ', $container_class ) ); ?>"
+            data-mkt-theme="<?php echo esc_attr( $theme ); ?>"
+            data-theme-prefixes="<?php echo esc_attr( $theme_prefixes ); ?>"
+        >
+            <?php if ( $theme_switcher ) : ?>
+                <?php echo $this->render_theme_switcher( $section_id, $theme ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+            <?php endif; ?>
             <?php foreach ( $plans as $index => $plan ) :
                 $is_highlighted = $index === $highlight_index;
                 ?>
@@ -99,6 +123,44 @@ class PTP_Pricing_Table_Pro {
             <?php endforeach; ?>
         </section>
         <?php
+        return ob_get_clean();
+    }
+
+    private function normalize_theme( $theme ) {
+        $allowed = [ 'light', 'dark', 'yellow' ];
+
+        $theme = strtolower( trim( (string) $theme ) );
+
+        if ( ! in_array( $theme, $allowed, true ) ) {
+            $theme = 'yellow';
+        }
+
+        return $theme;
+    }
+
+    private function render_theme_switcher( $section_id, $current_theme ) {
+        $options = [
+            'light'  => __( 'Light', 'pricing-table-pro' ),
+            'dark'   => __( 'Dark', 'pricing-table-pro' ),
+            'yellow' => __( 'Yellow', 'pricing-table-pro' ),
+        ];
+
+        $select_id = $section_id . '-theme';
+
+        ob_start();
+        ?>
+        <div class="mkt-theme-switcher" data-target="<?php echo esc_attr( $section_id ); ?>">
+            <label for="<?php echo esc_attr( $select_id ); ?>"><?php esc_html_e( 'Theme', 'pricing-table-pro' ); ?></label>
+            <select id="<?php echo esc_attr( $select_id ); ?>" aria-controls="<?php echo esc_attr( $section_id ); ?>">
+                <?php foreach ( $options as $value => $label ) : ?>
+                    <option value="<?php echo esc_attr( $value ); ?>" <?php selected( $current_theme, $value ); ?>>
+                        <?php echo esc_html( $label ); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <?php
+
         return ob_get_clean();
     }
 

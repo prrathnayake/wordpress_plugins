@@ -15,11 +15,53 @@
   --mkt-accent-soft: rgba(37, 99, 235, 0.16);
 }
 
+.mkt-theme--yellow {
+  --mkt-ink: #3a2a0a;
+  --mkt-ink-soft: rgba(58, 42, 10, 0.78);
+  --mkt-ink-subtle: rgba(58, 42, 10, 0.6);
+  --mkt-surface: linear-gradient(145deg, #fff7d6 0%, #ffe08a 45%, #facc15 100%);
+  --mkt-card: linear-gradient(150deg, rgba(255, 249, 231, 0.95), rgba(253, 230, 138, 0.7));
+  --mkt-card-highlight: linear-gradient(180deg, rgba(245, 158, 11, 0.25), rgba(250, 204, 21, 0));
+  --mkt-accent: #f59e0b;
+  --mkt-accent-strong: #d97706;
+  --mkt-accent-soft: rgba(245, 158, 11, 0.22);
+}
+
 .mkt-ui {
   font-family: var(--mkt-font-family);
   color: var(--mkt-ink);
   line-height: 1.6;
   letter-spacing: -0.01em;
+}
+
+.mkt-theme-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.9rem;
+  color: var(--mkt-ink-soft);
+}
+
+.mkt-theme-switcher label {
+  font-weight: 600;
+}
+
+.mkt-theme-switcher select {
+  appearance: none;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 23, 42, 0.15);
+  background: #fff;
+  padding: 0.35rem 1.4rem 0.35rem 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: inherit;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+}
+
+.mkt-theme--yellow .mkt-theme-switcher select {
+  border-color: rgba(217, 119, 6, 0.4);
+  background: rgba(255, 248, 225, 0.95);
 }
 
 [data-animate],
@@ -88,6 +130,60 @@
 .ptp-plan--highlighted {
   background: var(--mkt-card-highlight);
   border: 1px solid rgba(37, 99, 235, 0.35);
+}
+
+.ptp-pricing--theme-yellow .ptp-plan,
+.ptp-theme--yellow .ptp-plan {
+  background: var(--mkt-card);
+  border-color: rgba(217, 119, 6, 0.2);
+  box-shadow: 0 24px 48px rgba(245, 158, 11, 0.18);
+}
+
+.ptp-pricing--theme-yellow .ptp-plan--highlighted,
+.ptp-theme--yellow .ptp-plan--highlighted {
+  border-color: rgba(234, 179, 8, 0.55);
+}
+
+.ptp-pricing--theme-yellow .ptp-plan__badge,
+.ptp-theme--yellow .ptp-plan__badge {
+  background: rgba(245, 158, 11, 0.22);
+  color: #9a3412;
+}
+
+.ptp-pricing--theme-yellow .ptp-plan__name,
+.ptp-theme--yellow .ptp-plan__name {
+  color: #3a2a0a;
+}
+
+.ptp-pricing--theme-yellow .ptp-plan__tagline,
+.ptp-theme--yellow .ptp-plan__tagline,
+.ptp-pricing--theme-yellow .ptp-plan__features li,
+.ptp-theme--yellow .ptp-plan__features li,
+.ptp-pricing--theme-yellow .ptp-plan__period,
+.ptp-theme--yellow .ptp-plan__period,
+.ptp-pricing--theme-yellow .ptp-plan__currency,
+.ptp-theme--yellow .ptp-plan__currency,
+.ptp-pricing--theme-yellow .ptp-plan__footnote,
+.ptp-theme--yellow .ptp-plan__footnote {
+  color: rgba(90, 56, 5, 0.72);
+}
+
+.ptp-pricing--theme-yellow .ptp-plan__features li::before,
+.ptp-theme--yellow .ptp-plan__features li::before {
+  color: #f59e0b;
+}
+
+.ptp-pricing--theme-yellow .ptp-plan__button,
+.ptp-theme--yellow .ptp-plan__button {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  box-shadow: 0 20px 38px rgba(217, 119, 6, 0.35);
+}
+
+.ptp-pricing--theme-yellow .ptp-plan__button:hover,
+.ptp-theme--yellow .ptp-plan__button:hover,
+.ptp-pricing--theme-yellow .ptp-plan__button:focus-visible,
+.ptp-theme--yellow .ptp-plan__button:focus-visible {
+  box-shadow: 0 24px 48px rgba(217, 119, 6, 0.45);
 }
 
 .ptp-plan__badge {

@@ -8,6 +8,59 @@
     return String(value).padStart(2, '0');
   }
 
+  function applyTheme(target, theme) {
+    if (!target) {
+      return;
+    }
+
+    const prefixes = (target.dataset.themePrefixes || '')
+      .split(',')
+      .map((prefix) => prefix.trim())
+      .filter(Boolean);
+
+    const classes = Array.from(target.classList);
+
+    prefixes.forEach((prefix) => {
+      classes
+        .filter((className) => className.startsWith(prefix))
+        .forEach((className) => target.classList.remove(className));
+
+      target.classList.add(`${prefix}${theme}`);
+    });
+
+    target.setAttribute('data-mkt-theme', theme);
+  }
+
+  function initThemeSwitchers() {
+    const switchers = document.querySelectorAll('.mkt-theme-switcher select');
+
+    switchers.forEach((select) => {
+      const wrapper = select.closest('.mkt-theme-switcher');
+      if (!wrapper) {
+        return;
+      }
+
+      const targetId = wrapper.getAttribute('data-target');
+      if (!targetId) {
+        return;
+      }
+
+      const target = document.getElementById(targetId);
+      if (!target) {
+        return;
+      }
+
+      const currentTheme = target.getAttribute('data-mkt-theme');
+      if (currentTheme) {
+        select.value = currentTheme;
+      }
+
+      select.addEventListener('change', (event) => {
+        applyTheme(target, event.target.value);
+      });
+    });
+  }
+
   function initRevealAnimations(root) {
     const units = root.querySelectorAll('.ect-countdown__unit');
 
@@ -89,10 +142,17 @@
     const interval = setInterval(tick, prefersReducedMotion ? 2000 : 1000);
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
+  function init() {
     document.querySelectorAll('.ect-countdown').forEach((container) => {
       renderCountdown(container);
       initRevealAnimations(container);
     });
-  });
+    initThemeSwitchers();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();

@@ -18,11 +18,54 @@
   --mkt-accent-soft: rgba(37, 99, 235, 0.16);
 }
 
+.mkt-theme--yellow {
+  --mkt-ink: #3a2a0a;
+  --mkt-ink-soft: rgba(58, 42, 10, 0.78);
+  --mkt-ink-subtle: rgba(58, 42, 10, 0.6);
+  --mkt-surface: linear-gradient(145deg, #fff7d6 0%, #ffe08a 45%, #facc15 100%);
+  --mkt-surface-dark: linear-gradient(160deg, rgba(82, 49, 0, 0.92), rgba(55, 34, 0, 0.82));
+  --mkt-card: linear-gradient(150deg, rgba(255, 249, 231, 0.94), rgba(253, 230, 138, 0.66));
+  --mkt-card-dark: linear-gradient(150deg, rgba(79, 42, 0, 0.88), rgba(52, 28, 0, 0.78));
+  --mkt-accent: #f59e0b;
+  --mkt-accent-strong: #d97706;
+  --mkt-accent-soft: rgba(245, 158, 11, 0.22);
+}
+
 .mkt-ui {
   font-family: var(--mkt-font-family);
   color: var(--mkt-ink);
   line-height: 1.6;
   letter-spacing: -0.01em;
+}
+
+.mkt-theme-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--mkt-ink-soft);
+}
+
+.mkt-theme-switcher label {
+  font-weight: 600;
+}
+
+.mkt-theme-switcher select {
+  appearance: none;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 23, 42, 0.15);
+  background: #fff;
+  padding: 0.35rem 1.4rem 0.35rem 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: inherit;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+}
+
+.mkt-theme--yellow .mkt-theme-switcher select {
+  border-color: rgba(217, 119, 6, 0.4);
+  background: rgba(255, 248, 225, 0.95);
 }
 
 [data-animate],
@@ -48,15 +91,27 @@
   background: var(--mkt-surface);
 }
 
-.sfc-feature-section--dark {
+.sfc-feature-section--dark,
+.sfc-feature-section--theme-dark,
+.sfc-theme--dark {
   background: var(--mkt-surface-dark);
   color: #e2e8f0;
   border-color: rgba(148, 163, 184, 0.2);
 }
 
-.sfc-feature-section--light {
+.sfc-feature-section--light,
+.sfc-feature-section--theme-light,
+.sfc-theme--light {
   background: var(--mkt-surface);
   color: var(--mkt-ink);
+}
+
+.sfc-feature-section--theme-yellow,
+.sfc-theme--yellow {
+  background: var(--mkt-surface);
+  color: var(--mkt-ink);
+  border-color: rgba(217, 119, 6, 0.25);
+  box-shadow: 0 30px 60px rgba(245, 158, 11, 0.2);
 }
 
 .sfc-feature-shell {
@@ -91,8 +146,15 @@
   margin: 0;
 }
 
-.sfc-feature-section--light .sfc-feature-eyebrow {
+.sfc-feature-section--light .sfc-feature-eyebrow,
+.sfc-feature-section--theme-light .sfc-feature-eyebrow,
+.sfc-theme--light .sfc-feature-eyebrow {
   color: rgba(37, 99, 235, 0.8);
+}
+
+.sfc-feature-section--theme-yellow .sfc-feature-eyebrow,
+.sfc-theme--yellow .sfc-feature-eyebrow {
+  color: rgba(217, 119, 6, 0.85);
 }
 
 .sfc-feature-title {
@@ -109,8 +171,15 @@
   color: rgba(148, 163, 184, 0.95);
 }
 
-.sfc-feature-section--light .sfc-feature-subtitle {
+.sfc-feature-section--light .sfc-feature-subtitle,
+.sfc-feature-section--theme-light .sfc-feature-subtitle,
+.sfc-theme--light .sfc-feature-subtitle {
   color: rgba(71, 85, 105, 0.95);
+}
+
+.sfc-feature-section--theme-yellow .sfc-feature-subtitle,
+.sfc-theme--yellow .sfc-feature-subtitle {
+  color: rgba(90, 56, 5, 0.82);
 }
 
 .sfc-feature-button {
@@ -168,9 +237,18 @@
   border-color: rgba(255, 255, 255, 0.12);
 }
 
-.sfc-feature-section--light .sfc-feature-item {
+.sfc-feature-section--light .sfc-feature-item,
+.sfc-feature-section--theme-light .sfc-feature-item,
+.sfc-theme--light .sfc-feature-item {
   background: var(--mkt-card);
   border-color: rgba(15, 23, 42, 0.05);
+}
+
+.sfc-feature-section--theme-yellow .sfc-feature-item,
+.sfc-theme--yellow .sfc-feature-item {
+  background: var(--mkt-card);
+  border-color: rgba(217, 119, 6, 0.18);
+  box-shadow: 0 18px 36px rgba(245, 158, 11, 0.16);
 }
 
 .sfc-feature-item.is-visible {
@@ -203,8 +281,15 @@
   line-height: 1.6;
 }
 
-.sfc-feature-section--light .sfc-feature-copy p {
+.sfc-feature-section--light .sfc-feature-copy p,
+.sfc-feature-section--theme-light .sfc-feature-copy p,
+.sfc-theme--light .sfc-feature-copy p {
   color: rgba(71, 85, 105, 0.9);
+}
+
+.sfc-feature-section--theme-yellow .sfc-feature-copy p,
+.sfc-theme--yellow .sfc-feature-copy p {
+  color: rgba(90, 56, 5, 0.78);
 }
 
 @media (prefers-reduced-motion: reduce) {
