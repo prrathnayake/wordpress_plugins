@@ -141,3 +141,24 @@
 .smp-card.is-visible .smp-card__progress-bar {
   transform: scaleX(calc(var(--smp-progress, 100) / 100));
 }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-animate],
+  [data-mkt-animate],
+  .smp-card,
+  .smp-card__progress-bar {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .smp-card,
+  .smp-card.is-visible {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .smp-card__progress-bar,
+  .smp-card.is-visible .smp-card__progress-bar {
+    transform: scaleX(calc(var(--smp-progress, 100) / 100)) !important;
+  }
+}

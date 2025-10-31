@@ -171,3 +171,19 @@
   color: #fff;
   transform: translateY(-1px);
 }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-animate],
+  [data-mkt-animate],
+  .tmp-profile-card,
+  .tmp-profile-card__social-link {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .tmp-profile-card,
+  .tmp-profile-card.is-visible {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}

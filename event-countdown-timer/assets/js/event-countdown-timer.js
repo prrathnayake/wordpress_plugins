@@ -1,9 +1,28 @@
 (function () {
+  const prefersReducedMotion =
+    typeof window !== 'undefined' &&
+    window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   function pad(value) {
     return String(value).padStart(2, '0');
   }
 
   function initRevealAnimations(root) {
+    const units = root.querySelectorAll('.ect-countdown__unit');
+
+    if (!units.length) {
+      return;
+    }
+
+    if (prefersReducedMotion || typeof IntersectionObserver === 'undefined') {
+      units.forEach((unit) => {
+        unit.classList.add('is-visible');
+        unit.style.removeProperty('--ect-delay');
+      });
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -16,7 +35,7 @@
       { threshold: 0.3 }
     );
 
-    root.querySelectorAll('.ect-countdown__unit').forEach((unit, index) => {
+    units.forEach((unit, index) => {
       unit.style.setProperty('--ect-delay', `${index * 70}ms`);
       observer.observe(unit);
     });
@@ -67,7 +86,7 @@
     }
 
     tick();
-    const interval = setInterval(tick, 1000);
+    const interval = setInterval(tick, prefersReducedMotion ? 2000 : 1000);
   }
 
   document.addEventListener('DOMContentLoaded', () => {

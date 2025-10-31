@@ -198,6 +198,26 @@
   overflow: hidden;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  [data-animate],
+  [data-mkt-animate],
+  .cis-hero-card,
+  .cis-hero-btn,
+  .cis-swiper .swiper-slide,
+  .cis-nav,
+  .cis-pagination,
+  .cis-slider-shell {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  [data-animate],
+  [data-mkt-animate] {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
 .cis-bg-blur {
   position: absolute;
   inset: auto -25% -45% auto;
