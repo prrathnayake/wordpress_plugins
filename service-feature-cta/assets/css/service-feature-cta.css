@@ -206,3 +206,19 @@
 .sfc-feature-section--light .sfc-feature-copy p {
   color: rgba(71, 85, 105, 0.9);
 }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-animate],
+  [data-mkt-animate],
+  .sfc-feature-item,
+  .sfc-feature-button {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .sfc-feature-item,
+  .sfc-feature-item.is-visible {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}

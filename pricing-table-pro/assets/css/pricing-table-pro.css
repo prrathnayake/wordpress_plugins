@@ -183,3 +183,19 @@
   font-size: 0.85rem;
   color: var(--mkt-ink-subtle);
 }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-animate],
+  [data-mkt-animate],
+  .ptp-plan,
+  .ptp-plan__button {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .ptp-plan,
+  .ptp-plan.is-visible {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}

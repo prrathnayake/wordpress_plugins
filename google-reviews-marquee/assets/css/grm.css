@@ -94,3 +94,14 @@
   font-weight: 600;
   color: var(--mkt-ink);
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .grm-swiper .swiper-wrapper,
+  .grm-card,
+  .grm-title,
+  .grm-card *,
+  .grm-wrap {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}

@@ -1,4 +1,9 @@
 (function(){
+    const prefersReducedMotion =
+        typeof window !== 'undefined' &&
+        window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     function ensureLightbox(){
         var lb = document.querySelector('.cis-lightbox');
         if(lb) return lb;
@@ -87,7 +92,7 @@
             };
 
             if (type === 'images') {
-                var autoplay = (autoplayAttr === 'true');
+                var autoplay = !prefersReducedMotion && (autoplayAttr === 'true');
                 config.autoplay = autoplay ? { delay: isNaN(delay) ? 2500 : delay, disableOnInteraction: false } : false;
             }
 
