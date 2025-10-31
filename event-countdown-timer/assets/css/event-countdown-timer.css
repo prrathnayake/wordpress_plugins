@@ -13,11 +13,51 @@
   --mkt-accent-strong: #4338ca;
 }
 
+.mkt-theme--yellow {
+  --mkt-ink: #3a2a0a;
+  --mkt-ink-soft: rgba(58, 42, 10, 0.78);
+  --mkt-ink-subtle: rgba(58, 42, 10, 0.6);
+  --mkt-surface: linear-gradient(145deg, #fff7d6 0%, #ffe08a 48%, #facc15 100%);
+  --mkt-surface-dark: linear-gradient(165deg, rgba(217, 119, 6, 0.95), rgba(194, 65, 12, 0.85));
+  --mkt-accent: #f59e0b;
+  --mkt-accent-strong: #d97706;
+}
+
 .mkt-ui {
   font-family: var(--mkt-font-family);
   color: var(--mkt-ink);
   line-height: 1.6;
   letter-spacing: -0.01em;
+}
+
+.mkt-theme-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.9rem;
+  color: var(--mkt-ink-soft);
+}
+
+.mkt-theme-switcher label {
+  font-weight: 600;
+}
+
+.mkt-theme-switcher select {
+  appearance: none;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 23, 42, 0.15);
+  background: #fff;
+  padding: 0.35rem 1.4rem 0.35rem 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: inherit;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+}
+
+.mkt-theme--yellow .mkt-theme-switcher select {
+  border-color: rgba(217, 119, 6, 0.4);
+  background: rgba(255, 248, 225, 0.95);
 }
 
 [data-animate],
@@ -43,6 +83,13 @@
   background: var(--mkt-surface-dark);
 }
 
+.ect-countdown--theme-yellow,
+.ect-theme--yellow {
+  color: var(--mkt-ink);
+  background: var(--mkt-surface);
+  box-shadow: 0 30px 60px rgba(245, 158, 11, 0.22);
+}
+
 .ect-countdown::after {
   content: '';
   position: absolute;
@@ -50,6 +97,12 @@
   background: radial-gradient(circle at top right, rgba(79, 70, 229, 0.32), transparent 55%);
   mix-blend-mode: screen;
   pointer-events: none;
+}
+
+.ect-countdown--theme-yellow::after,
+.ect-theme--yellow::after {
+  background: radial-gradient(circle at top right, rgba(245, 158, 11, 0.25), transparent 55%);
+  mix-blend-mode: normal;
 }
 
 .ect-countdown__inner {
@@ -69,6 +122,12 @@
   letter-spacing: 0.18em;
 }
 
+.ect-countdown--theme-yellow .ect-countdown__badge,
+.ect-theme--yellow .ect-countdown__badge {
+  background: rgba(245, 158, 11, 0.18);
+  color: #9a3412;
+}
+
 .ect-countdown__title {
   margin: 0;
   font-size: clamp(2.25rem, 5vw, 3.4rem);
@@ -80,6 +139,11 @@
   margin: 0;
   max-width: 48ch;
   color: rgba(226, 232, 255, 0.82);
+}
+
+.ect-countdown--theme-yellow .ect-countdown__description,
+.ect-theme--yellow .ect-countdown__description {
+  color: rgba(90, 56, 5, 0.82);
 }
 
 .ect-countdown__timer {
@@ -101,6 +165,12 @@
   transition-delay: var(--ect-delay, 0ms);
 }
 
+.ect-countdown--theme-yellow .ect-countdown__unit,
+.ect-theme--yellow .ect-countdown__unit {
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 18px 36px rgba(245, 158, 11, 0.16);
+}
+
 .ect-countdown__unit.is-visible {
   transform: translateY(0);
   opacity: 1;
@@ -118,6 +188,11 @@
   text-transform: uppercase;
   letter-spacing: 0.18em;
   color: rgba(226, 232, 255, 0.72);
+}
+
+.ect-countdown--theme-yellow .ect-countdown__label,
+.ect-theme--yellow .ect-countdown__label {
+  color: rgba(90, 56, 5, 0.72);
 }
 
 .ect-countdown__button {
@@ -144,6 +219,11 @@
   margin: 0;
   font-size: 0.95rem;
   color: rgba(226, 232, 255, 0.72);
+}
+
+.ect-countdown--theme-yellow .ect-countdown__meta,
+.ect-theme--yellow .ect-countdown__meta {
+  color: rgba(90, 56, 5, 0.72);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -4,6 +4,59 @@
     window.matchMedia &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  function applyTheme(target, theme) {
+    if (!target) {
+      return;
+    }
+
+    const prefixes = (target.dataset.themePrefixes || '')
+      .split(',')
+      .map((prefix) => prefix.trim())
+      .filter(Boolean);
+
+    const classes = Array.from(target.classList);
+
+    prefixes.forEach((prefix) => {
+      classes
+        .filter((className) => className.startsWith(prefix))
+        .forEach((className) => target.classList.remove(className));
+
+      target.classList.add(`${prefix}${theme}`);
+    });
+
+    target.setAttribute('data-mkt-theme', theme);
+  }
+
+  function initThemeSwitchers() {
+    const switchers = document.querySelectorAll('.mkt-theme-switcher select');
+
+    switchers.forEach((select) => {
+      const wrapper = select.closest('.mkt-theme-switcher');
+      if (!wrapper) {
+        return;
+      }
+
+      const targetId = wrapper.getAttribute('data-target');
+      if (!targetId) {
+        return;
+      }
+
+      const target = document.getElementById(targetId);
+      if (!target) {
+        return;
+      }
+
+      const currentTheme = target.getAttribute('data-mkt-theme');
+      if (currentTheme) {
+        select.value = currentTheme;
+      }
+
+      select.addEventListener('change', (event) => {
+        applyTheme(target, event.target.value);
+      });
+    });
+  }
+
   function animateFeatures() {
     const items = document.querySelectorAll('.sfc-feature-item');
 
@@ -37,9 +90,14 @@
     });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', animateFeatures);
-  } else {
+  function init() {
     animateFeatures();
+    initThemeSwitchers();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 })();

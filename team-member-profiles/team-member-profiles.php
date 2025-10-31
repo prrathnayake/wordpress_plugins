@@ -45,14 +45,18 @@ if ( ! class_exists( 'TMP_Team_Member_Profiles' ) ) {
         public function render_shortcode( $atts ) {
             $atts = shortcode_atts(
                 [
-                    'layout'  => 'grid',
-                    'columns' => 3,
-                    'members' => '',
-                    'theme'   => 'light',
+                    'layout'         => 'grid',
+                    'columns'        => 3,
+                    'members'        => '',
+                    'theme'          => 'yellow',
+                    'theme_switcher' => 'false',
                 ],
                 $atts,
                 'team_member_profiles'
             );
+
+            $theme          = $this->normalize_theme( $atts['theme'] );
+            $theme_switcher = filter_var( $atts['theme_switcher'], FILTER_VALIDATE_BOOLEAN );
 
             $columns = (int) $atts['columns'];
             if ( $columns < 1 || $columns > 4 ) {
@@ -67,9 +71,28 @@ if ( ! class_exists( 'TMP_Team_Member_Profiles' ) ) {
             wp_enqueue_style( 'tmp-team-member-profiles' );
             wp_enqueue_script( 'tmp-team-member-profiles' );
 
+            $section_id      = wp_unique_id( 'tmp-profiles-' );
+            $theme_prefixes  = 'tmp-profile-grid--theme-,mkt-theme--';
+            $wrapper_classes = [
+                'tmp-profile-grid',
+                'tmp-profile-grid--' . sanitize_html_class( $atts['layout'] ),
+                'tmp-profile-grid--cols-' . $columns,
+                'tmp-profile-grid--theme-' . $theme,
+                'mkt-ui',
+                'mkt-theme--' . $theme,
+            ];
+
             ob_start();
             ?>
-            <section class="tmp-profile-grid tmp-profile-grid--<?php echo esc_attr( $atts['layout'] ); ?> tmp-profile-grid--cols-<?php echo esc_attr( $columns ); ?> tmp-profile-grid--theme-<?php echo esc_attr( $atts['theme'] ); ?> mkt-ui">
+            <section
+                id="<?php echo esc_attr( $section_id ); ?>"
+                class="<?php echo esc_attr( implode( ' ', $wrapper_classes ) ); ?>"
+                data-mkt-theme="<?php echo esc_attr( $theme ); ?>"
+                data-theme-prefixes="<?php echo esc_attr( $theme_prefixes ); ?>"
+            >
+                <?php if ( $theme_switcher ) : ?>
+                    <?php echo $this->render_theme_switcher( $section_id, $theme ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                <?php endif; ?>
                 <?php foreach ( $members as $member ) : ?>
                     <article class="tmp-profile-card" data-animate="fade-up">
                         <div class="tmp-profile-card__media">
@@ -103,6 +126,44 @@ if ( ! class_exists( 'TMP_Team_Member_Profiles' ) ) {
                 <?php endforeach; ?>
             </section>
             <?php
+            return ob_get_clean();
+        }
+
+        private function normalize_theme( $theme ) {
+            $allowed = [ 'light', 'dark', 'yellow' ];
+
+            $theme = strtolower( trim( (string) $theme ) );
+
+            if ( ! in_array( $theme, $allowed, true ) ) {
+                $theme = 'yellow';
+            }
+
+            return $theme;
+        }
+
+        private function render_theme_switcher( $section_id, $current_theme ) {
+            $options = [
+                'light'  => __( 'Light', 'team-member-profiles' ),
+                'dark'   => __( 'Dark', 'team-member-profiles' ),
+                'yellow' => __( 'Yellow', 'team-member-profiles' ),
+            ];
+
+            $select_id = $section_id . '-theme';
+
+            ob_start();
+            ?>
+            <div class="mkt-theme-switcher" data-target="<?php echo esc_attr( $section_id ); ?>">
+                <label for="<?php echo esc_attr( $select_id ); ?>"><?php esc_html_e( 'Theme', 'team-member-profiles' ); ?></label>
+                <select id="<?php echo esc_attr( $select_id ); ?>" aria-controls="<?php echo esc_attr( $section_id ); ?>">
+                    <?php foreach ( $options as $value => $label ) : ?>
+                        <option value="<?php echo esc_attr( $value ); ?>" <?php selected( $current_theme, $value ); ?>>
+                            <?php echo esc_html( $label ); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <?php
+
             return ob_get_clean();
         }
 
