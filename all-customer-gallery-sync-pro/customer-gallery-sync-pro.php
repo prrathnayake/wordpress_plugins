@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Customer Gallery Sync (Pro) — Global & Product Sliders
  * Description: Cache ACF 'customer_images' nightly + manual sync, choose featured images, side title layout, centered images, hover + background effects, autoplay, fullscreen.
- * Version: 1.2.0
+ * Version: 1.3.0
  * Author: BuiltByPasan + ChatGPT
  * License: GPLv2 or later
  * Text Domain: customer-gallery-sync
@@ -66,22 +66,31 @@ class Customer_Gallery_Sync_Pro {
     public function register_assets(){
         wp_register_style('swiper','https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css',array(),'10.3.1');
         wp_register_script('swiper','https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js',array(),'10.3.1',true);
-        wp_register_style('cgs', plugins_url('assets/css/cgs.css', __FILE__), array('swiper'), '1.2.0');
-        wp_register_script('cgs', plugins_url('assets/js/cgs.js', __FILE__), array('swiper'), '1.2.0', true);
+        wp_register_style('cgs', plugins_url('assets/css/cgs.css', __FILE__), array('swiper'), '1.3.0');
+        wp_register_script('cgs', plugins_url('assets/js/cgs.js', __FILE__), array('swiper'), '1.3.0', true);
     }
     private function enqueue_assets(){ wp_enqueue_style('swiper'); wp_enqueue_script('swiper'); wp_enqueue_style('cgs'); wp_enqueue_script('cgs'); }
 
     public function shortcode_global($atts){
         $atts=shortcode_atts(array(
-            'title'=>'Happy Customers','columns'=>'4','size'=>'large','limit'=>'0','order'=>'desc','use'=>'selected','autoplay'=>'true','delay'=>'2500','speed'=>'600','side_title'=>'true'
+            'title'=>'Happy Customers','columns'=>'4','size'=>'large','limit'=>'0','order'=>'desc','use'=>'selected','autoplay'=>'true','delay'=>'2500','speed'=>'600','side_title'=>'true','theme'=>'yellow','theme_switcher'=>'false'
         ), $atts, 'customer_gallery_slider');
         $this->enqueue_assets();
         $use_selected = strtolower($atts['use'])==='selected';
         $images = $use_selected ? $this->get_selected_images() : $this->get_cached_images($atts);
         if(empty($images)) return '';
         $columns=max(1,intval($atts['columns'])); $count=count($images); $title=sanitize_text_field($atts['title']); $size=sanitize_text_field($atts['size']); $show_side = (strtolower($atts['side_title'])==='true');
+        $theme=$this->normalize_theme($atts['theme']);
+        $theme_switcher=filter_var($atts['theme_switcher'], FILTER_VALIDATE_BOOLEAN);
+        $section_id=wp_unique_id('cgs-');
+        $theme_prefixes='cgs-wrap--theme-,cgs-theme--,mkt-theme--';
+        $classes=array('cgs-wrap','cgs-wrap--theme-'.$theme,'cgs-theme--'.$theme,'mkt-theme--'.$theme,'mkt-ui');
         ob_start(); ?>
-        <section class="cgs-wrap cgs-layout mkt-ui">
+        <section id="<?php echo esc_attr($section_id); ?>" class="<?php echo esc_attr(implode(' ',$classes)); ?>" data-mkt-theme="<?php echo esc_attr($theme); ?>" data-theme-prefixes="<?php echo esc_attr($theme_prefixes); ?>">
+            <?php if($theme_switcher): ?>
+                <?php echo $this->render_theme_switcher($section_id,$theme); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+            <?php endif; ?>
+            <div class="cgs-layout">
             <?php if($show_side): ?>
             <aside class="cgs-side-title">
                 <div class="cgs-side-title-inner">
@@ -122,13 +131,14 @@ class Customer_Gallery_Sync_Pro {
                     <div class="cgs-pagination" aria-hidden="true"></div>
                 </div>
             </div>
+            </div>
         </section>
         <?php return ob_get_clean();
     }
 
     public function shortcode_product($atts){
         if(!function_exists('get_field')) return '<div class="cgs-notice">ACF required.</div>';
-        $atts=shortcode_atts(array('title'=>'Happy Customers','columns'=>'3','size'=>'large','product_id'=>'','autoplay'=>'true','delay'=>'2500','speed'=>'600','side_title'=>'true'), $atts, 'customer_product_slider');
+        $atts=shortcode_atts(array('title'=>'Happy Customers','columns'=>'3','size'=>'large','product_id'=>'','autoplay'=>'true','delay'=>'2500','speed'=>'600','side_title'=>'true','theme'=>'yellow','theme_switcher'=>'false'), $atts, 'customer_product_slider');
         $this->enqueue_assets();
         $pid=0;
         if($atts['product_id']) $pid=intval($atts['product_id']);
@@ -138,8 +148,17 @@ class Customer_Gallery_Sync_Pro {
         $images=get_field('customer_images',$pid);
         if(empty($images)) return '';
         $columns=max(1,intval($atts['columns'])); $count=is_array($images)?count($images):0; $title=sanitize_text_field($atts['title']); $size=sanitize_text_field($atts['size']); $show_side = (strtolower($atts['side_title'])==='true');
+        $theme=$this->normalize_theme($atts['theme']);
+        $theme_switcher=filter_var($atts['theme_switcher'], FILTER_VALIDATE_BOOLEAN);
+        $section_id=wp_unique_id('cgs-');
+        $theme_prefixes='cgs-wrap--theme-,cgs-theme--,mkt-theme--';
+        $classes=array('cgs-wrap','cgs-wrap--theme-'.$theme,'cgs-theme--'.$theme,'mkt-theme--'.$theme,'mkt-ui');
         ob_start(); ?>
-        <section class="cgs-wrap cgs-layout mkt-ui">
+        <section id="<?php echo esc_attr($section_id); ?>" class="<?php echo esc_attr(implode(' ',$classes)); ?>" data-mkt-theme="<?php echo esc_attr($theme); ?>" data-theme-prefixes="<?php echo esc_attr($theme_prefixes); ?>">
+            <?php if($theme_switcher): ?>
+                <?php echo $this->render_theme_switcher($section_id,$theme); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+            <?php endif; ?>
+            <div class="cgs-layout">
             <?php if($show_side): ?>
             <aside class="cgs-side-title">
                 <div class="cgs-side-title-inner">
@@ -169,6 +188,7 @@ class Customer_Gallery_Sync_Pro {
                     <button class="cgs-nav cgs-nav-next" aria-label="<?php esc_attr_e('Next','customer-gallery-sync'); ?>"></button>
                     <div class="cgs-pagination" aria-hidden="true"></div>
                 </div>
+            </div>
             </div>
         </section>
         <?php return ob_get_clean();
@@ -303,6 +323,33 @@ class Customer_Gallery_Sync_Pro {
         $map=[]; foreach($rows as $r){ $map[intval($r['image_id'])]=$r; }
         $ordered=[]; foreach($sel as $id){ if(isset($map[$id])) $ordered[]=$map[$id]; }
         return $ordered;
+    }
+
+    private function normalize_theme($theme){
+        $allowed=array('yellow','light','dark');
+        $theme=strtolower(trim((string)$theme));
+        if(!in_array($theme,$allowed,true)) $theme='yellow';
+        return $theme;
+    }
+
+    private function render_theme_switcher($section_id,$current_theme){
+        $options=array(
+            'yellow'=>__('Yellow','customer-gallery-sync'),
+            'light'=>__('Light','customer-gallery-sync'),
+            'dark'=>__('Dark','customer-gallery-sync'),
+        );
+        $select_id=$section_id.'-theme';
+        ob_start(); ?>
+        <div class="mkt-theme-switcher" data-target="<?php echo esc_attr($section_id); ?>">
+            <label for="<?php echo esc_attr($select_id); ?>"><?php esc_html_e('Theme','customer-gallery-sync'); ?></label>
+            <select id="<?php echo esc_attr($select_id); ?>" aria-controls="<?php echo esc_attr($section_id); ?>">
+                <?php foreach($options as $value=>$label): ?>
+                    <option value="<?php echo esc_attr($value); ?>" <?php selected($current_theme,$value); ?>><?php echo esc_html($label); ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <?php
+        return ob_get_clean();
     }
 }
 
