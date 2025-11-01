@@ -3,32 +3,32 @@
   --mkt-ink: #0f172a;
   --mkt-ink-soft: rgba(15, 23, 42, 0.72);
   --mkt-ink-subtle: rgba(15, 23, 42, 0.5);
-  --mkt-surface: linear-gradient(145deg, #fffce6 0%, #ffe894 48%, #ffd700 100%);
+  --mkt-surface: linear-gradient(145deg, #fffce6 0%, #ffe894 48%, #f7c600 100%);
   --mkt-surface-dark: linear-gradient(150deg, rgba(82, 49, 0, 0.95), rgba(55, 34, 0, 0.78));
   --mkt-card: linear-gradient(140deg, rgba(255, 255, 255, 0.9), rgba(255, 232, 153, 0.6));
   --mkt-card-dark: linear-gradient(160deg, rgba(68, 46, 0, 0.82), rgba(112, 75, 0, 0.72));
   --mkt-radius-xl: 26px;
   --mkt-radius-lg: 20px;
   --mkt-radius-md: 16px;
-  --mkt-shadow-lg: 0 28px 64px rgba(198, 147, 0, 0.22);
-  --mkt-shadow-md: 0 20px 48px rgba(198, 147, 0, 0.18);
-  --mkt-shadow-sm: 0 12px 28px rgba(198, 147, 0, 0.12);
-  --mkt-accent: #ffd700;
-  --mkt-accent-strong: #c69300;
-  --mkt-accent-soft: rgba(255, 215, 0, 0.22);
+  --mkt-shadow-lg: 0 28px 64px rgba(184, 134, 0, 0.22);
+  --mkt-shadow-md: 0 20px 48px rgba(184, 134, 0, 0.18);
+  --mkt-shadow-sm: 0 12px 28px rgba(184, 134, 0, 0.12);
+  --mkt-accent: #f7c600;
+  --mkt-accent-strong: #b88600;
+  --mkt-accent-soft: rgba(247, 198, 0, 0.22);
 }
 
 .mkt-theme--yellow {
   --mkt-ink: #3a2a0a;
   --mkt-ink-soft: rgba(58, 42, 10, 0.78);
   --mkt-ink-subtle: rgba(58, 42, 10, 0.6);
-  --mkt-surface: linear-gradient(145deg, #fff9d6 0%, #ffe27a 45%, #ffd700 100%);
+  --mkt-surface: linear-gradient(145deg, #fff9d6 0%, #ffe27a 45%, #f7c600 100%);
   --mkt-surface-dark: linear-gradient(160deg, rgba(82, 49, 0, 0.92), rgba(55, 34, 0, 0.82));
   --mkt-card: linear-gradient(150deg, rgba(255, 249, 231, 0.94), rgba(255, 228, 128, 0.66));
   --mkt-card-dark: linear-gradient(150deg, rgba(79, 42, 0, 0.88), rgba(52, 28, 0, 0.78));
-  --mkt-accent: #ffd700;
-  --mkt-accent-strong: #c69300;
-  --mkt-accent-soft: rgba(255, 215, 0, 0.24);
+  --mkt-accent: #f7c600;
+  --mkt-accent-strong: #b88600;
+  --mkt-accent-soft: rgba(247, 198, 0, 0.24);
 }
 
 .mkt-ui {
@@ -54,17 +54,17 @@
 .mkt-theme-switcher select {
   appearance: none;
   border-radius: 999px;
-  border: 1px solid rgba(198, 147, 0, 0.25);
+  border: 1px solid rgba(184, 134, 0, 0.25);
   background: #fffdf3;
   padding: 0.35rem 1.4rem 0.35rem 0.8rem;
   font-size: 0.9rem;
   font-weight: 500;
   color: inherit;
-  box-shadow: 0 8px 18px rgba(198, 147, 0, 0.18);
+  box-shadow: 0 8px 18px rgba(184, 134, 0, 0.18);
 }
 
 .mkt-theme--yellow .mkt-theme-switcher select {
-  border-color: rgba(198, 147, 0, 0.45);
+  border-color: rgba(184, 134, 0, 0.45);
   background: rgba(255, 249, 217, 0.95);
 }
 
@@ -110,8 +110,8 @@
 .sfc-theme--yellow {
   background: var(--mkt-surface);
   color: var(--mkt-ink);
-  border-color: rgba(198, 147, 0, 0.28);
-  box-shadow: 0 30px 60px rgba(255, 215, 0, 0.22);
+  border-color: rgba(184, 134, 0, 0.28);
+  box-shadow: 0 30px 60px rgba(247, 198, 0, 0.22);
 }
 
 .sfc-feature-shell {
@@ -149,12 +149,12 @@
 .sfc-feature-section--light .sfc-feature-eyebrow,
 .sfc-feature-section--theme-light .sfc-feature-eyebrow,
 .sfc-theme--light .sfc-feature-eyebrow {
-  color: rgba(198, 147, 0, 0.85);
+  color: rgba(184, 134, 0, 0.85);
 }
 
 .sfc-feature-section--theme-yellow .sfc-feature-eyebrow,
 .sfc-theme--yellow .sfc-feature-eyebrow {
-  color: rgba(198, 147, 0, 0.95);
+  color: rgba(184, 134, 0, 0.95);
 }
 
 .sfc-feature-title {
@@ -193,14 +193,14 @@
   padding: 0.85rem 1.8rem;
   font-weight: 600;
   text-decoration: none;
-  box-shadow: 0 18px 36px rgba(198, 147, 0, 0.35);
+  box-shadow: 0 18px 36px rgba(184, 134, 0, 0.35);
   transition: transform 200ms ease, box-shadow 200ms ease;
 }
 
 .sfc-feature-button:hover,
 .sfc-feature-button:focus-visible {
   transform: translateY(-2px);
-  box-shadow: 0 24px 48px rgba(198, 147, 0, 0.45);
+  box-shadow: 0 24px 48px rgba(184, 134, 0, 0.45);
 }
 
 .sfc-feature-button__icon {
@@ -247,8 +247,8 @@
 .sfc-feature-section--theme-yellow .sfc-feature-item,
 .sfc-theme--yellow .sfc-feature-item {
   background: var(--mkt-card);
-  border-color: rgba(198, 147, 0, 0.22);
-  box-shadow: 0 18px 36px rgba(255, 215, 0, 0.2);
+  border-color: rgba(184, 134, 0, 0.22);
+  box-shadow: 0 18px 36px rgba(247, 198, 0, 0.2);
 }
 
 .sfc-feature-item.is-visible {

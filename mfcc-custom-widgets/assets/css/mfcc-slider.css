@@ -47,12 +47,12 @@
   width: 40px;
   height: 40px;
   border: none;
-  background: rgba(255, 215, 0, 0.85);
+  background: rgba(247, 198, 0, 0.85);
   color: #3a2a0a;
   border-radius: 50%;
   cursor: pointer;
   z-index: 2;
-  box-shadow: 0 12px 24px rgba(198, 147, 0, 0.24);
+  box-shadow: 0 12px 24px rgba(184, 134, 0, 0.24);
 }
 
 .mfcc-image-slider .mfcc-slide-prev {
