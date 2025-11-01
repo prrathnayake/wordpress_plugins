@@ -47,11 +47,12 @@
   width: 40px;
   height: 40px;
   border: none;
-  background: rgba(0, 0, 0, 0.5);
-  color: #fff;
+  background: rgba(255, 215, 0, 0.85);
+  color: #3a2a0a;
   border-radius: 50%;
   cursor: pointer;
   z-index: 2;
+  box-shadow: 0 12px 24px rgba(198, 147, 0, 0.24);
 }
 
 .mfcc-image-slider .mfcc-slide-prev {
@@ -66,7 +67,7 @@
 .mfcc-image-slider .mfcc-slide-prev::before,
 .mfcc-image-slider .mfcc-slide-next::before {
   content: '';
-  border: solid white;
+  border: solid currentColor;
   border-width: 0 2px 2px 0;
   display: inline-block;
   padding: 8px;

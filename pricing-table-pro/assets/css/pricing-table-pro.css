@@ -3,28 +3,28 @@
   --mkt-ink: #0f172a;
   --mkt-ink-soft: rgba(15, 23, 42, 0.72);
   --mkt-ink-subtle: rgba(15, 23, 42, 0.5);
-  --mkt-surface: linear-gradient(145deg, #f7f9ff 0%, #eef2ff 48%, #e3e9f7 100%);
-  --mkt-card: linear-gradient(140deg, rgba(255, 255, 255, 0.95), rgba(241, 245, 255, 0.65));
-  --mkt-card-highlight: linear-gradient(180deg, rgba(37, 99, 235, 0.1), rgba(37, 99, 235, 0));
+  --mkt-surface: linear-gradient(145deg, #fffce6 0%, #ffe894 48%, #ffd700 100%);
+  --mkt-card: linear-gradient(140deg, rgba(255, 255, 255, 0.95), rgba(255, 232, 153, 0.65));
+  --mkt-card-highlight: linear-gradient(180deg, rgba(255, 215, 0, 0.24), rgba(255, 215, 0, 0));
   --mkt-radius-xl: 26px;
   --mkt-radius-lg: 20px;
-  --mkt-shadow-lg: 0 28px 64px rgba(12, 28, 92, 0.18);
-  --mkt-shadow-md: 0 20px 48px rgba(12, 28, 92, 0.14);
-  --mkt-accent: #2563eb;
-  --mkt-accent-strong: #4338ca;
-  --mkt-accent-soft: rgba(37, 99, 235, 0.16);
+  --mkt-shadow-lg: 0 28px 64px rgba(198, 147, 0, 0.22);
+  --mkt-shadow-md: 0 20px 48px rgba(198, 147, 0, 0.18);
+  --mkt-accent: #ffd700;
+  --mkt-accent-strong: #c69300;
+  --mkt-accent-soft: rgba(255, 215, 0, 0.22);
 }
 
 .mkt-theme--yellow {
   --mkt-ink: #3a2a0a;
   --mkt-ink-soft: rgba(58, 42, 10, 0.78);
   --mkt-ink-subtle: rgba(58, 42, 10, 0.6);
-  --mkt-surface: linear-gradient(145deg, #fff7d6 0%, #ffe08a 45%, #facc15 100%);
-  --mkt-card: linear-gradient(150deg, rgba(255, 249, 231, 0.95), rgba(253, 230, 138, 0.7));
-  --mkt-card-highlight: linear-gradient(180deg, rgba(245, 158, 11, 0.25), rgba(250, 204, 21, 0));
-  --mkt-accent: #f59e0b;
-  --mkt-accent-strong: #d97706;
-  --mkt-accent-soft: rgba(245, 158, 11, 0.22);
+  --mkt-surface: linear-gradient(145deg, #fff9d6 0%, #ffe27a 45%, #ffd700 100%);
+  --mkt-card: linear-gradient(150deg, rgba(255, 249, 231, 0.95), rgba(255, 228, 128, 0.7));
+  --mkt-card-highlight: linear-gradient(180deg, rgba(255, 215, 0, 0.3), rgba(255, 215, 0, 0));
+  --mkt-accent: #ffd700;
+  --mkt-accent-strong: #c69300;
+  --mkt-accent-soft: rgba(255, 215, 0, 0.24);
 }
 
 .mkt-ui {
@@ -50,18 +50,18 @@
 .mkt-theme-switcher select {
   appearance: none;
   border-radius: 999px;
-  border: 1px solid rgba(15, 23, 42, 0.15);
-  background: #fff;
+  border: 1px solid rgba(198, 147, 0, 0.25);
+  background: #fffdf3;
   padding: 0.35rem 1.4rem 0.35rem 0.8rem;
   font-size: 0.9rem;
   font-weight: 500;
   color: inherit;
-  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 8px 18px rgba(198, 147, 0, 0.18);
 }
 
 .mkt-theme--yellow .mkt-theme-switcher select {
-  border-color: rgba(217, 119, 6, 0.4);
-  background: rgba(255, 248, 225, 0.95);
+  border-color: rgba(198, 147, 0, 0.45);
+  background: rgba(255, 249, 217, 0.95);
 }
 
 [data-animate],
@@ -106,7 +106,7 @@
   padding: clamp(1.75rem, 4vw, 2.5rem);
   border-radius: var(--mkt-radius-lg);
   background: var(--mkt-card);
-  border: 1px solid rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(198, 147, 0, 0.22);
   box-shadow: var(--mkt-shadow-md);
   overflow: hidden;
   display: flex;
@@ -124,30 +124,30 @@
 }
 
 .ptp-plan:hover {
-  box-shadow: 0 36px 72px rgba(15, 23, 42, 0.12);
+  box-shadow: 0 36px 72px rgba(198, 147, 0, 0.26);
 }
 
 .ptp-plan--highlighted {
   background: var(--mkt-card-highlight);
-  border: 1px solid rgba(37, 99, 235, 0.35);
+  border: 1px solid rgba(198, 147, 0, 0.45);
 }
 
 .ptp-pricing--theme-yellow .ptp-plan,
 .ptp-theme--yellow .ptp-plan {
   background: var(--mkt-card);
-  border-color: rgba(217, 119, 6, 0.2);
-  box-shadow: 0 24px 48px rgba(245, 158, 11, 0.18);
+  border-color: rgba(198, 147, 0, 0.26);
+  box-shadow: 0 24px 48px rgba(255, 215, 0, 0.24);
 }
 
 .ptp-pricing--theme-yellow .ptp-plan--highlighted,
 .ptp-theme--yellow .ptp-plan--highlighted {
-  border-color: rgba(234, 179, 8, 0.55);
+  border-color: rgba(198, 147, 0, 0.58);
 }
 
 .ptp-pricing--theme-yellow .ptp-plan__badge,
 .ptp-theme--yellow .ptp-plan__badge {
-  background: rgba(245, 158, 11, 0.22);
-  color: #9a3412;
+  background: rgba(255, 215, 0, 0.24);
+  color: #8a6200;
 }
 
 .ptp-pricing--theme-yellow .ptp-plan__name,
@@ -170,20 +170,20 @@
 
 .ptp-pricing--theme-yellow .ptp-plan__features li::before,
 .ptp-theme--yellow .ptp-plan__features li::before {
-  color: #f59e0b;
+  color: #ffd700;
 }
 
 .ptp-pricing--theme-yellow .ptp-plan__button,
 .ptp-theme--yellow .ptp-plan__button {
-  background: linear-gradient(135deg, #f59e0b, #d97706);
-  box-shadow: 0 20px 38px rgba(217, 119, 6, 0.35);
+  background: linear-gradient(135deg, #ffd700, #c69300);
+  box-shadow: 0 20px 38px rgba(198, 147, 0, 0.35);
 }
 
 .ptp-pricing--theme-yellow .ptp-plan__button:hover,
 .ptp-theme--yellow .ptp-plan__button:hover,
 .ptp-pricing--theme-yellow .ptp-plan__button:focus-visible,
 .ptp-theme--yellow .ptp-plan__button:focus-visible {
-  box-shadow: 0 24px 48px rgba(217, 119, 6, 0.45);
+  box-shadow: 0 24px 48px rgba(198, 147, 0, 0.46);
 }
 
 .ptp-plan__badge {
@@ -264,14 +264,14 @@
   text-decoration: none;
   background: linear-gradient(135deg, var(--mkt-accent), var(--mkt-accent-strong));
   color: #fff;
-  box-shadow: 0 20px 40px rgba(37, 99, 235, 0.35);
+  box-shadow: 0 20px 40px rgba(198, 147, 0, 0.35);
   transition: transform 220ms ease, box-shadow 220ms ease;
 }
 
 .ptp-plan__button:hover,
 .ptp-plan__button:focus-visible {
   transform: translateY(-2px);
-  box-shadow: 0 26px 52px rgba(37, 99, 235, 0.45);
+  box-shadow: 0 26px 52px rgba(198, 147, 0, 0.45);
 }
 
 .ptp-plan__footnote {
