@@ -1,4 +1,37 @@
 (function(){
+    function applyTheme(target, theme){
+        if(!target){ return; }
+        var prefixes = (target.getAttribute('data-theme-prefixes') || '')
+            .split(',')
+            .map(function(prefix){ return prefix.trim(); })
+            .filter(function(prefix){ return prefix.length > 0; });
+        var classes = Array.prototype.slice.call(target.classList);
+        prefixes.forEach(function(prefix){
+            classes
+                .filter(function(className){ return className.indexOf(prefix) === 0; })
+                .forEach(function(className){ target.classList.remove(className); });
+            target.classList.add(prefix + theme);
+        });
+        target.setAttribute('data-mkt-theme', theme);
+    }
+
+    function initThemeSwitchers(){
+        var switchers = document.querySelectorAll('.mkt-theme-switcher select');
+        Array.prototype.forEach.call(switchers, function(select){
+            var wrapper = select.closest('.mkt-theme-switcher');
+            if(!wrapper){ return; }
+            var targetId = wrapper.getAttribute('data-target');
+            if(!targetId){ return; }
+            var target = document.getElementById(targetId);
+            if(!target){ return; }
+            var currentTheme = target.getAttribute('data-mkt-theme');
+            if(currentTheme){ select.value = currentTheme; }
+            select.addEventListener('change', function(event){
+                applyTheme(target, event.target.value);
+            });
+        });
+    }
+
     function ensureLightbox(){
         var lb = document.querySelector('.cgs-lightbox');
         if(lb) return lb;
@@ -60,6 +93,13 @@
             if (full) openImage(full, alt);
         });
     }
-    function initAll(){ document.querySelectorAll('.cgs-swiper').forEach(initSwiper); }
-    if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', initAll); } else { initAll(); }
+    function init(){
+        document.querySelectorAll('.cgs-swiper').forEach(initSwiper);
+        initThemeSwitchers();
+    }
+    if(document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
 })();
