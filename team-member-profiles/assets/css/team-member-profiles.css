@@ -3,16 +3,16 @@
   --mkt-ink: #0f172a;
   --mkt-ink-soft: rgba(15, 23, 42, 0.72);
   --mkt-ink-subtle: rgba(15, 23, 42, 0.5);
-  --mkt-surface: linear-gradient(145deg, #fffce6 0%, #ffe894 48%, #ffd700 100%);
+  --mkt-surface: linear-gradient(145deg, #fffce6 0%, #ffe894 48%, #f7c600 100%);
   --mkt-card: linear-gradient(150deg, rgba(255, 255, 255, 0.92), rgba(255, 232, 153, 0.65));
   --mkt-card-dark: linear-gradient(150deg, rgba(68, 46, 0, 0.88), rgba(112, 75, 0, 0.72));
   --mkt-radius-lg: 24px;
   --mkt-radius-md: 18px;
   --mkt-shadow-lg: 0 28px 64px rgba(12, 28, 92, 0.18);
   --mkt-shadow-md: 0 20px 48px rgba(12, 28, 92, 0.14);
-  --mkt-accent: #ffd700;
-  --mkt-accent-strong: #c69300;
-  --mkt-accent-soft: rgba(255, 215, 0, 0.22);
+  --mkt-accent: #f7c600;
+  --mkt-accent-strong: #b88600;
+  --mkt-accent-soft: rgba(247, 198, 0, 0.22);
 }
 
 .mkt-ui {
@@ -26,12 +26,12 @@
   --mkt-ink: #3a2a0a;
   --mkt-ink-soft: rgba(58, 42, 10, 0.78);
   --mkt-ink-subtle: rgba(58, 42, 10, 0.6);
-  --mkt-surface: linear-gradient(145deg, #fff9d6 0%, #ffe27a 45%, #ffd700 100%);
+  --mkt-surface: linear-gradient(145deg, #fff9d6 0%, #ffe27a 45%, #f7c600 100%);
   --mkt-card: linear-gradient(150deg, rgba(255, 249, 231, 0.95), rgba(255, 228, 128, 0.7));
   --mkt-card-dark: linear-gradient(150deg, rgba(55, 34, 0, 0.88), rgba(82, 49, 0, 0.75));
-  --mkt-accent: #ffd700;
-  --mkt-accent-strong: #c69300;
-  --mkt-accent-soft: rgba(255, 215, 0, 0.24);
+  --mkt-accent: #f7c600;
+  --mkt-accent-strong: #b88600;
+  --mkt-accent-soft: rgba(247, 198, 0, 0.24);
 }
 
 .mkt-theme-switcher {
@@ -106,7 +106,7 @@
   --tmp-profile-border: rgba(148, 163, 184, 0.25);
   --tmp-profile-heading: #f8fafc;
   --tmp-profile-text: #f4e4a1;
-  --tmp-profile-accent: #ffd700;
+  --tmp-profile-accent: #f7c600;
 }
 
 .tmp-profile-grid--theme-light {
@@ -120,10 +120,10 @@
 .tmp-profile-grid--theme-yellow,
 .tmp-profile-grid[data-mkt-theme="yellow"] {
   --tmp-profile-surface: linear-gradient(160deg, rgba(255, 252, 232, 0.96), rgba(255, 224, 128, 0.66));
-  --tmp-profile-border: rgba(198, 147, 0, 0.25);
+  --tmp-profile-border: rgba(184, 134, 0, 0.25);
   --tmp-profile-heading: #3a2a0a;
   --tmp-profile-text: rgba(90, 56, 5, 0.78);
-  --tmp-profile-accent: #ffd700;
+  --tmp-profile-accent: #f7c600;
 }
 
 .tmp-profile-card {
@@ -152,7 +152,7 @@
   border-radius: var(--mkt-radius-md);
   overflow: hidden;
   margin-bottom: 1.25rem;
-  background: radial-gradient(circle at top, rgba(255, 215, 0, 0.28), transparent 55%);
+  background: radial-gradient(circle at top, rgba(247, 198, 0, 0.28), transparent 55%);
 }
 
 .tmp-profile-card__media img {
@@ -170,7 +170,7 @@
   font-size: clamp(1.75rem, 3vw, 2.25rem);
   font-weight: 600;
   color: var(--tmp-profile-accent, var(--mkt-accent));
-  background: rgba(255, 215, 0, 0.12);
+  background: rgba(247, 198, 0, 0.12);
 }
 
 .tmp-profile-card__name {
